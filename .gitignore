@@ -30,8 +30,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Private / protected files (e.g. downloadable ebook, sensitive assets)
+/private/
+
 # env files (can opt-in for committing if needed)
 .env*
+
+# Large media / audio files
+/public/audio/*.mp4
+/public/audio/*.mp3
 
 # vercel
 .vercel
