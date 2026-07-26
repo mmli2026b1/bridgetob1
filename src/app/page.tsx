@@ -81,7 +81,7 @@ export default function HomePage() {
                 preload="metadata"
               >
                 <source src="/audio/Success-B1-Audio.mp4" type="audio/mp4" />
-                <source src="/audio/Success-B1-Audio.mp4" type="audio/mpeg" />
+                
                 Your browser does not support the audio element.
               </audio>
               <p className="mt-3 text-center text-xs text-slate-400">
