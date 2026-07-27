@@ -16,9 +16,9 @@ export default function TopicCard({ topic, isPaid, isUnlocked }: Props) {
 
   return (
     <Link
-      href={canAccess ? `/topics/${topic.slug}` : "#"}
+      href={`/topics/${topic.slug}`}
       className={`group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-md ${
-        !canAccess ? "cursor-default opacity-70" : "hover:-translate-y-0.5"
+        !canAccess ? "cursor-pointer opacity-70" : "hover:-translate-y-0.5"
       }`}
     >
       {/* Badge */}
