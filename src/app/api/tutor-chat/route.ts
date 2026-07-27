@@ -214,7 +214,7 @@ export async function POST(request: NextRequest) {
     if (reset || message === "start") {
       // Start a fresh session — ask a practice question
       const msg = await anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-5",
         max_tokens: 300,
         system: systemPrompt,
         messages: [
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
 
     // 8. Get Claude's response
     const msg = await anthropic.messages.create({
-      model: "claude-sonnet-4-20250514",
+      model: "claude-sonnet-5",
       max_tokens: 500,
       system: systemPrompt,
       messages,
