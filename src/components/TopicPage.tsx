@@ -4,6 +4,7 @@ import { TopicContent } from "@/lib/content";
 import { useLanguage } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
 import { BookOpen, MessageCircle, Sparkles, Lightbulb } from "lucide-react";
+import TranslatableWord from "@/components/TranslatableWord";
 
 type Props = {
   topic: TopicContent;
@@ -73,8 +74,12 @@ export default function TopicPage({ topic }: Props) {
                 key={i}
                 className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
               >
-                <p className="font-bold text-emerald-700">{item.word}</p>
-                <p className="mt-1 text-sm text-slate-500">{item.definition}</p>
+                <p className="font-bold text-emerald-700">
+                  <TranslatableWord text={item.word} translation={item.wordAr} />
+                </p>
+                <p className="mt-1 text-sm text-slate-500">
+                  <TranslatableWord text={item.definition} translation={item.definitionAr} />
+                </p>
                 {item.example && (
                   <p className="mt-2 italic text-slate-400 text-sm">
                     &ldquo;{item.example}&rdquo;
@@ -132,7 +137,7 @@ export default function TopicPage({ topic }: Props) {
             <ul className="space-y-2">
               {topic.usefulPhrases.map((phrase, i) => (
                 <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1 text-pink-400">✦</span>
+                  <span className="mt-1 text-pink-400">✪</span>
                   <span className="text-slate-700">{phrase}</span>
                 </li>
               ))}

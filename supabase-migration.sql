@@ -18,25 +18,23 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 -- Policy: users can read their own profile
+DROP POLICY IF EXISTS "Users can read own profile" ON public.profiles;
 CREATE POLICY "Users can read own profile"
   ON public.profiles
   FOR SELECT
   USING (auth.uid() = id);
 
--- Policy: users can update their own profile (but NOT membership_status or stripe_customer_id)
-CREATE POLICY "Users can update own profile (non-sensitive fields)"
+-- Policy: users can update their own profile row
+-- (Sensitive fields like membership_status, stripe_customer_id, and ebook_purchased
+--  should only ever be changed server-side via the service_role/admin client,
+--  e.g. from the Stripe webhook handler — never directly from the client.)
+DROP POLICY IF EXISTS "Users can update own profile (non-sensitive fields)" ON public.profiles;
+DROP POLICY IF EXISTS "Users can update own profile" ON public.profiles;
+CREATE POLICY "Users can update own profile"
   ON public.profiles
   FOR UPDATE
   USING (auth.uid() = id)
-  WITH CHECK (
-    auth.uid() = id AND
-    -- Only allow updating email, not membership_status, stripe_customer_id, or ebook_purchased
-    (
-      COALESCE(membership_status = OLD.membership_status, true) AND
-      COALESCE(stripe_customer_id = OLD.stripe_customer_id, true) AND
-      COALESCE(ebook_purchased = OLD.ebook_purchased, true)
-    )
-  );
+  WITH CHECK (auth.uid() = id);
 
 -- Note: The service_role key (used by createAdminClient) automatically bypasses RLS.
 -- No separate policy is needed — Supabase treats the service role as a super admin.
@@ -53,6 +51,7 @@ CREATE TABLE IF NOT EXISTS public.daily_message_counts (
 ALTER TABLE public.daily_message_counts ENABLE ROW LEVEL SECURITY;
 
 -- Policy: users can read their own daily count
+DROP POLICY IF EXISTS "Users can read own message count" ON public.daily_message_counts;
 CREATE POLICY "Users can read own message count"
   ON public.daily_message_counts
   FOR SELECT
@@ -71,6 +70,7 @@ CREATE TABLE IF NOT EXISTS public.chat_messages (
 ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
 
 -- Policy: users can read their own messages
+DROP POLICY IF EXISTS "Users can read own chat messages" ON public.chat_messages;
 CREATE POLICY "Users can read own chat messages"
   ON public.chat_messages
   FOR SELECT
@@ -78,6 +78,7 @@ CREATE POLICY "Users can read own chat messages"
 
 -- Policy: the service role can insert messages (the API uses the admin client)
 -- We'll rely on the service_role key for inserts, but also allow authenticated inserts:
+DROP POLICY IF EXISTS "Users can insert own chat messages" ON public.chat_messages;
 CREATE POLICY "Users can insert own chat messages"
   ON public.chat_messages
   FOR INSERT
