@@ -9,6 +9,8 @@ export type VocabItem = {
   word: string;
   definition: string;
   example?: string;
+  wordAr?: string;        // Arabic translation of the word
+  definitionAr?: string;  // Arabic translation of the definition
 };
 
 export type ModelQA = {
@@ -49,14 +51,14 @@ export const topics: TopicContent[] = [
       { label: "Do you have any siblings?", hint: "e.g. I have one older brother." },
     ],
     vocabulary: [
-      { word: "immediate family", definition: "Parents, siblings, and children", example: "My immediate family includes my parents and my sister." },
-      { word: "extended family", definition: "Relatives beyond immediate family (aunts, uncles, cousins, grandparents)", example: "I see my extended family during holidays." },
-      { word: "close-knit", definition: "Having strong relationships with each other", example: "We are a close-knit family." },
-      { word: "to take after", definition: "To resemble a family member in appearance or character", example: "I take after my father — we both love reading." },
-      { word: "to get along with", definition: "To have a good relationship with someone", example: "I get along very well with my younger sister." },
-      { word: "to bring up", definition: "To raise a child", example: "My parents brought me up to be honest." },
-      { word: "to look up to", definition: "To admire and respect someone", example: "I really look up to my older brother." },
-      { word: "to settle down", definition: "To start a stable life, often getting married", example: "I hope to settle down and have kids one day." },
+      { word: "immediate family", wordAr: "الأسرة المباشرة", definition: "Parents, siblings, and children", definitionAr: "الوالدان والإخوة والأبناء", example: "My immediate family includes my parents and my sister." },
+      { word: "extended family", wordAr: "الأسرة الممتدة", definition: "Relatives beyond immediate family (aunts, uncles, cousins, grandparents)", definitionAr: "الأقارب خارج الأسرة المباشرة (الأعمام والعمات والأخوال والخالات وأبناء العم وأولاد الأخوال والأجداد)", example: "I see my extended family during holidays." },
+      { word: "close-knit", wordAr: "مترابط", definition: "Having strong relationships with each other", definitionAr: "وجود علاقات قوية مع بعضهم البعض", example: "We are a close-knit family." },
+      { word: "to take after", wordAr: "يشبه", definition: "To resemble a family member in appearance or character", definitionAr: "أن يشبه أحد أفراد الأسرة في المظهر أو الشخصية", example: "I take after my father — we both love reading." },
+      { word: "to get along with", wordAr: "ينسجم مع", definition: "To have a good relationship with someone", definitionAr: "أن تكون لديك علاقة جيدة مع شخص ما", example: "I get along very well with my younger sister." },
+      { word: "to bring up", wordAr: "يربي", definition: "To raise a child", definitionAr: "تربية طفل", example: "My parents brought me up to be honest." },
+      { word: "to look up to", wordAr: "يحترم ويقتدي بـ", definition: "To admire and respect someone", definitionAr: "أن تعجب بشخص ما وتحترمه", example: "I really look up to my older brother." },
+      { word: "to settle down", wordAr: "يستقر", definition: "To start a stable life, often getting married", definitionAr: "أن تبدأ حياة مستقرة، غالبًا بالزواج", example: "I hope to settle down and have kids one day." },
     ],
     modelQAs: [
       {
@@ -99,11 +101,11 @@ export const topics: TopicContent[] = [
       { label: "What do you do in your current job?", hint: "e.g. I work as a customer service assistant." },
     ],
     vocabulary: [
-      { word: "rewarding", definition: "Giving satisfaction and fulfillment", example: "I find teaching very rewarding." },
-      { word: "to be promoted", definition: "To move to a higher position", example: "I hope to be promoted next year." },
-      { word: "to earn a living", definition: "To make money to support yourself", example: "She earns a living as a freelance designer." },
-      { word: "challenging", definition: "Difficult in a way that tests your abilities", example: "The job is challenging but exciting." },
-      { word: "qualifications", definition: "Official exams or courses you have passed", example: "You need good qualifications for this role." },
+      { word: "rewarding", wordAr: "مجزٍ", definition: "Giving satisfaction and fulfillment", definitionAr: "يمنح الرضا والإشباع", example: "I find teaching very rewarding." },
+      { word: "to be promoted", wordAr: "يُرقّى", definition: "To move to a higher position", definitionAr: "الانتقال إلى منصب أعلى", example: "I hope to be promoted next year." },
+      { word: "to earn a living", wordAr: "يكسب عيشه", definition: "To make money to support yourself", definitionAr: "كسب المال لإعالة نفسك", example: "She earns a living as a freelance designer." },
+      { word: "challenging", wordAr: "صعب ويختبر القدرات", definition: "Difficult in a way that tests your abilities", definitionAr: "صعب بطريقة تختبر قدراتك", example: "The job is challenging but exciting." },
+      { word: "qualifications", wordAr: "المؤهلات", definition: "Official exams or courses you have passed", definitionAr: "الامتحانات أو الدورات الرسمية التي اجتزتها", example: "You need good qualifications for this role." },
     ],
     modelQAs: [
       {
@@ -135,11 +137,11 @@ export const topics: TopicContent[] = [
       { label: "How often do you do this hobby?", hint: "e.g. I play football twice a week." },
     ],
     vocabulary: [
-      { word: "pastime", definition: "An activity you do for enjoyment", example: "Reading is my favourite pastime." },
-      { word: "to take up", definition: "To start a new hobby", example: "I took up painting during the lockdown." },
-      { word: "to be keen on", definition: "To be very interested in something", example: "I'm very keen on photography." },
-      { word: "relaxing", definition: "Helping you feel calm and less stressed", example: "Listening to music is very relaxing for me." },
-      { word: "the great outdoors", definition: "Countryside, natural environment", example: "I love spending time in the great outdoors." },
+      { word: "pastime", wordAr: "هواية", definition: "An activity you do for enjoyment", definitionAr: "نشاط تقوم به للمتعة", example: "Reading is my favourite pastime." },
+      { word: "to take up", wordAr: "يبدأ ممارسة", definition: "To start a new hobby", definitionAr: "بدء هواية جديدة", example: "I took up painting during the lockdown." },
+      { word: "to be keen on", wordAr: "شغوف بـ", definition: "To be very interested in something", definitionAr: "أن تكون مهتمًا جدًا بشيء ما", example: "I'm very keen on photography." },
+      { word: "relaxing", wordAr: "مريح", definition: "Helping you feel calm and less stressed", definitionAr: "يساعدك على الشعور بالهدوء وتقليل التوتر", example: "Listening to music is very relaxing for me." },
+      { word: "the great outdoors", wordAr: "الطبيعة الخلابة", definition: "Countryside, natural environment", definitionAr: "الريف، البيئة الطبيعية", example: "I love spending time in the great outdoors." },
     ],
     modelQAs: [
       {
@@ -171,11 +173,11 @@ export const topics: TopicContent[] = [
       { label: "Where would you like to go?", hint: "e.g. I would love to visit Japan." },
     ],
     vocabulary: [
-      { word: "to go sightseeing", definition: "To visit tourist attractions", example: "We went sightseeing around the old town." },
-      { word: "breathtaking", definition: "Extremely beautiful", example: "The view from the mountain was breathtaking." },
-      { word: "destination", definition: "A place you travel to", example: "My dream destination is New Zealand." },
-      { word: "to broaden your horizons", definition: "To experience new things that expand your knowledge", example: "Travelling broadens your horizons." },
-      { word: "cultural experience", definition: "Experiencing the traditions and lifestyle of another place", example: "Trying local food is a great cultural experience." },
+      { word: "to go sightseeing", wordAr: "التجول لمشاهدة المعالم", definition: "To visit tourist attractions", definitionAr: "زيارة الأماكن السياحية", example: "We went sightseeing around the old town." },
+      { word: "breathtaking", wordAr: "خلاب", definition: "Extremely beautiful", definitionAr: "جميل للغاية", example: "The view from the mountain was breathtaking." },
+      { word: "destination", wordAr: "وجهة", definition: "A place you travel to", definitionAr: "مكان تسافر إليه", example: "My dream destination is New Zealand." },
+      { word: "to broaden your horizons", wordAr: "يوسع آفاقك", definition: "To experience new things that expand your knowledge", definitionAr: "تجربة أشياء جديدة توسع معرفتك", example: "Travelling broadens your horizons." },
+      { word: "cultural experience", wordAr: "تجربة ثقافية", definition: "Experiencing the traditions and lifestyle of another place", definitionAr: "تجربة تقاليد وأسلوب حياة مكان آخر", example: "Trying local food is a great cultural experience." },
     ],
     modelQAs: [
       {
@@ -207,11 +209,11 @@ export const topics: TopicContent[] = [
       { label: "What is special about your country?", hint: "e.g. It is known for its rich culture and history." },
     ],
     vocabulary: [
-      { word: "diverse", definition: "Having many different types of people or things", example: "My country has a very diverse culture." },
-      { word: "heritage", definition: "Traditions and history passed down through generations", example: "We are proud of our cultural heritage." },
-      { word: "landmark", definition: "A famous building or place", example: "The London Eye is a famous landmark." },
-      { word: "multicultural", definition: "Including people from many different cultures", example: "Britain is a multicultural society." },
-      { word: "to be located", definition: "To be situated in a particular place", example: "My country is located in Europe." },
+      { word: "diverse", wordAr: "متنوع", definition: "Having many different types of people or things", definitionAr: "وجود أنواع مختلفة كثيرة من الناس أو الأشياء", example: "My country has a very diverse culture." },
+      { word: "heritage", wordAr: "تراث", definition: "Traditions and history passed down through generations", definitionAr: "تقاليد وتاريخ تم توارثه عبر الأجيال", example: "We are proud of our cultural heritage." },
+      { word: "landmark", wordAr: "معلم بارز", definition: "A famous building or place", definitionAr: "مبنى أو مكان مشهور", example: "The London Eye is a famous landmark." },
+      { word: "multicultural", wordAr: "متعدد الثقافات", definition: "Including people from many different cultures", definitionAr: "يشمل أشخاصًا من ثقافات مختلفة كثيرة", example: "Britain is a multicultural society." },
+      { word: "to be located", wordAr: "يقع", definition: "To be situated in a particular place", definitionAr: "أن يكون موجودًا في مكان معين", example: "My country is located in Europe." },
     ],
     modelQAs: [
       {
@@ -243,11 +245,11 @@ export const topics: TopicContent[] = [
       { label: "What is public transport like in your area?", hint: "e.g. It is reliable and affordable." },
     ],
     vocabulary: [
-      { word: "public transport", definition: "Buses, trains, etc. that anyone can use", example: "Public transport in my city is quite good." },
-      { word: "commute", definition: "The journey to and from work", example: "My daily commute takes about 30 minutes." },
-      { word: "reliable", definition: "Trustworthy — always works as expected", example: "The trains are usually reliable." },
-      { word: "peak hours / rush hour", definition: "The busiest times for travel", example: "I avoid travelling during rush hour." },
-      { word: "congestion", definition: "Too many vehicles causing slow traffic", example: "There is a lot of congestion in the city centre." },
+      { word: "public transport", wordAr: "وسائل النقل العام", definition: "Buses, trains, etc. that anyone can use", definitionAr: "الحافلات والقطارات وغيرها التي يمكن لأي شخص استخدامها", example: "Public transport in my city is quite good." },
+      { word: "commute", wordAr: "التنقل اليومي", definition: "The journey to and from work", definitionAr: "الرحلة من وإلى العمل", example: "My daily commute takes about 30 minutes." },
+      { word: "reliable", wordAr: "موثوق", definition: "Trustworthy — always works as expected", definitionAr: "جدير بالثقة - يعمل دائمًا كما هو متوقع", example: "The trains are usually reliable." },
+      { word: "peak hours / rush hour", wordAr: "ساعة الذروة", definition: "The busiest times for travel", definitionAr: "أكثر أوقات السفر ازدحامًا", example: "I avoid travelling during rush hour." },
+      { word: "congestion", wordAr: "الازدحام", definition: "Too many vehicles causing slow traffic", definitionAr: "عدد كبير جدًا من المركبات يسبب بطء حركة المرور", example: "There is a lot of congestion in the city centre." },
     ],
     modelQAs: [
       {
@@ -279,11 +281,11 @@ export const topics: TopicContent[] = [
       { label: "What kind of films do you like?", hint: "e.g. I prefer comedy and action films." },
     ],
     vocabulary: [
-      { word: "blockbuster", definition: "A very successful and popular film", example: "Avatar was a huge blockbuster." },
-      { word: "entertaining", definition: "Enjoyable and interesting", example: "I found the show very entertaining." },
-      { word: "to be a fan of", definition: "To like something very much", example: "I'm a big fan of Marvel movies." },
-      { word: "box office", definition: "The place where tickets are sold or how much money a film makes", example: "The film was a box office hit." },
-      { word: "plot", definition: "The story of a film or book", example: "The plot was very gripping." },
+      { word: "blockbuster", wordAr: "فيلم ضخم النجاح", definition: "A very successful and popular film", definitionAr: "فيلم ناجح جدًا وشعبي", example: "Avatar was a huge blockbuster." },
+      { word: "entertaining", wordAr: "ممتع", definition: "Enjoyable and interesting", definitionAr: "ممتع ومثير للاهتمام", example: "I found the show very entertaining." },
+      { word: "to be a fan of", wordAr: "أن تكون من محبي", definition: "To like something very much", definitionAr: "أن تحب شيئًا كثيرًا", example: "I'm a big fan of Marvel movies." },
+      { word: "box office", wordAr: "شباك التذاكر", definition: "The place where tickets are sold or how much money a film makes", definitionAr: "المكان الذي تباع فيه التذاكر أو مقدار المال الذي يجنيه الفيلم", example: "The film was a box office hit." },
+      { word: "plot", wordAr: "حبكة", definition: "The story of a film or book", definitionAr: "قصة فيلم أو كتاب", example: "The plot was very gripping." },
     ],
     modelQAs: [
       {
@@ -315,11 +317,11 @@ export const topics: TopicContent[] = [
       { label: "How do you celebrate special occasions?", hint: "e.g. We have a party with family and friends." },
     ],
     vocabulary: [
-      { word: "celebration", definition: "A special event to mark something important", example: "We had a big celebration for my grandmother's 80th birthday." },
-      { word: "to throw a party", definition: "To organize a party", example: "My parents threw a party for my graduation." },
-      { word: "memorable", definition: "Worth remembering, special", example: "It was a truly memorable evening." },
-      { word: "tradition", definition: "Something people do regularly for a long time", example: "It's our family tradition to exchange gifts on New Year's Eve." },
-      { word: "to gather", definition: "To come together in one place", example: "The whole family gathers for Christmas dinner." },
+      { word: "celebration", wordAr: "احتفال", definition: "A special event to mark something important", definitionAr: "حدث خاص للاحتفال بشيء مهم", example: "We had a big celebration for my grandmother's 80th birthday." },
+      { word: "to throw a party", wordAr: "يقيم حفلة", definition: "To organize a party", definitionAr: "تنظيم حفلة", example: "My parents threw a party for my graduation." },
+      { word: "memorable", wordAr: "لا يُنسى", definition: "Worth remembering, special", definitionAr: "يستحق التذكر، مميز", example: "It was a truly memorable evening." },
+      { word: "tradition", wordAr: "تقليد", definition: "Something people do regularly for a long time", definitionAr: "شيء يفعله الناس بانتظام لفترة طويلة", example: "It's our family tradition to exchange gifts on New Year's Eve." },
+      { word: "to gather", wordAr: "يجتمع", definition: "To come together in one place", definitionAr: "التجمع في مكان واحد", example: "The whole family gathers for Christmas dinner." },
     ],
     modelQAs: [
       {
@@ -351,11 +353,11 @@ export const topics: TopicContent[] = [
       { label: "Do you prefer driving or taking public transport?", hint: "e.g. I prefer public transport because it's cheaper." },
     ],
     vocabulary: [
-      { word: "convenient", definition: "Easy and suitable for your needs", example: "The metro is very convenient." },
-      { word: "eco-friendly", definition: "Not harmful to the environment", example: "Cycling is an eco-friendly way to travel." },
-      { word: "fares", definition: "The money you pay for a journey on public transport", example: "Bus fares have gone up recently." },
-      { word: "to be stuck in traffic", definition: "To be delayed because of too many cars", example: "I was stuck in traffic for an hour." },
-      { word: "pedestrian", definition: "Someone who is walking", example: "The city is very pedestrian-friendly." },
+      { word: "convenient", wordAr: "مريح", definition: "Easy and suitable for your needs", definitionAr: "سهل ومناسب لاحتياجاتك", example: "The metro is very convenient." },
+      { word: "eco-friendly", wordAr: "صديق للبيئة", definition: "Not harmful to the environment", definitionAr: "غير ضار بالبيئة", example: "Cycling is an eco-friendly way to travel." },
+      { word: "fares", wordAr: "أجرة", definition: "The money you pay for a journey on public transport", definitionAr: "المال الذي تدفعه مقابل رحلة على وسائل النقل العام", example: "Bus fares have gone up recently." },
+      { word: "to be stuck in traffic", wordAr: "عالق في الزحام", definition: "To be delayed because of too many cars", definitionAr: "التأخر بسبب كثرة السيارات", example: "I was stuck in traffic for an hour." },
+      { word: "pedestrian", wordAr: "مشاة", definition: "Someone who is walking", definitionAr: "شخص يمشي", example: "The city is very pedestrian-friendly." },
     ],
     modelQAs: [
       {
@@ -386,11 +388,11 @@ export const topics: TopicContent[] = [
       { label: "Who is your favourite singer or band?", hint: "e.g. My favourite singer is Adele." },
     ],
     vocabulary: [
-      { word: "genre", definition: "A style or category of music", example: "My favourite genre is R&B." },
-      { word: "catchy", definition: "Easy to remember and enjoyable", example: "The song has a very catchy tune." },
-      { word: "lyrics", definition: "The words of a song", example: "I love the lyrics of this song — they are very meaningful." },
-      { word: "live performance", definition: "A concert where musicians perform in front of an audience", example: "I went to a live performance last weekend." },
-      { word: "to have a good voice", definition: "To sing well", example: "She has a really good voice." },
+      { word: "genre", wordAr: "نوع موسيقي", definition: "A style or category of music", definitionAr: "أسلوب أو فئة من الموسيقى", example: "My favourite genre is R&B." },
+      { word: "catchy", wordAr: "جذاب", definition: "Easy to remember and enjoyable", definitionAr: "سهل التذكر وممتع", example: "The song has a very catchy tune." },
+      { word: "lyrics", wordAr: "كلمات الأغنية", definition: "The words of a song", definitionAr: "كلمات الأغنية", example: "I love the lyrics of this song — they are very meaningful." },
+      { word: "live performance", wordAr: "أداء حي", definition: "A concert where musicians perform in front of an audience", definitionAr: "حفلة موسيقية يؤدي فيها الموسيقيون أمام الجمهور", example: "I went to a live performance last weekend." },
+      { word: "to have a good voice", wordAr: "يملك صوتًا جميلًا", definition: "To sing well", definitionAr: "الغناء بشكل جيد", example: "She has a really good voice." },
     ],
     modelQAs: [
       {
@@ -422,11 +424,11 @@ export const topics: TopicContent[] = [
       { label: "What was your most memorable recent experience?", hint: "e.g. I visited a new city last month." },
     ],
     vocabulary: [
-      { word: "recently", definition: "Not long ago", example: "I recently started learning to play the guitar." },
-      { word: "an unforgettable experience", definition: "An experience you will always remember", example: "Visiting the Grand Canyon was an unforgettable experience." },
-      { word: "to try something new", definition: "To do something you haven't done before", example: "I tried something new and went scuba diving." },
-      { word: "to achieve a goal", definition: "To succeed in doing what you planned", example: "I achieved my goal of running 5 km." },
-      { word: "a life-changing event", definition: "An event that significantly changes your life", example: "Moving to a new city was a life-changing event for me." },
+      { word: "recently", wordAr: "مؤخرًا", definition: "Not long ago", definitionAr: "منذ وقت ليس ببعيد", example: "I recently started learning to play the guitar." },
+      { word: "an unforgettable experience", wordAr: "تجربة لا تُنسى", definition: "An experience you will always remember", definitionAr: "تجربة ستتذكرها دائمًا", example: "Visiting the Grand Canyon was an unforgettable experience." },
+      { word: "to try something new", wordAr: "يجرب شيئًا جديدًا", definition: "To do something you haven't done before", definitionAr: "فعل شيء لم تفعله من قبل", example: "I tried something new and went scuba diving." },
+      { word: "to achieve a goal", wordAr: "يحقق هدفًا", definition: "To succeed in doing what you planned", definitionAr: "النجاح في تحقيق ما خططت له", example: "I achieved my goal of running 5 km." },
+      { word: "a life-changing event", wordAr: "حدث يغير الحياة", definition: "An event that significantly changes your life", definitionAr: "حدث يغير حياتك بشكل كبير", example: "Moving to a new city was a life-changing event for me." },
     ],
     modelQAs: [
       {
@@ -458,11 +460,11 @@ export const topics: TopicContent[] = [
       { label: "How do you prepare for festivals?", hint: "e.g. We clean the house and buy new clothes." },
     ],
     vocabulary: [
-      { word: "to celebrate", definition: "To mark a special occasion with activities", example: "We celebrate Christmas every year." },
-      { word: "festive spirit", definition: "The happy atmosphere during a festival", example: "The whole city is full of festive spirit." },
-      { word: "decorations", definition: "Things used to make a place look attractive", example: "We put up decorations around the house." },
-      { word: "traditional", definition: "Relating to old customs and ways of doing things", example: "We wear traditional clothes during the festival." },
-      { word: "fireworks", definition: "Explosive displays of light and colour in the sky", example: "The fireworks at midnight were spectacular." },
+      { word: "to celebrate", wordAr: "يحتفل", definition: "To mark a special occasion with activities", definitionAr: "الاحتفال بمناسبة خاصة بأنشطة", example: "We celebrate Christmas every year." },
+      { word: "festive spirit", wordAr: "روح احتفالية", definition: "The happy atmosphere during a festival", definitionAr: "الأجواء السعيدة خلال المهرجان", example: "The whole city is full of festive spirit." },
+      { word: "decorations", wordAr: "زينة", definition: "Things used to make a place look attractive", definitionAr: "أشياء تُستخدم لجعل مكان ما يبدو جذابًا", example: "We put up decorations around the house." },
+      { word: "traditional", wordAr: "تقليدي", definition: "Relating to old customs and ways of doing things", definitionAr: "يتعلق بالعادات القديمة وطرق فعل الأشياء", example: "We wear traditional clothes during the festival." },
+      { word: "fireworks", wordAr: "ألعاب نارية", definition: "Explosive displays of light and colour in the sky", definitionAr: "عروض ضوئية وملونة متفجرة في السماء", example: "The fireworks at midnight were spectacular." },
     ],
     modelQAs: [
       {
