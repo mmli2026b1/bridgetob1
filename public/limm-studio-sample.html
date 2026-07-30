@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Limm Studio — Web Design & Development</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #e8e8ed;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        /* ===== UTILITY ===== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        .section-sub {
+            color: #9898a8;
+            max-width: 560px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        section { padding: 100px 0; }
+        .dark-card {
+            background: #12121a;
+            border: 1px solid #1e1e2a;
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .dark-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.08);
+            border-color: #2a2a3a;
+        }
+
+        /* ===== AMBIENT GLOW ===== */
+        .glow {
+            position: fixed;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            z-index: 0;
+        }
+        .glow-1 { width: 600px; height: 600px; background: #8b5cf6; top: -200px; left: -200px; }
+        .glow-2 { width: 500px; height: 500px; background: #3b82f6; bottom: -150px; right: -150px; }
+        .glow-3 { width: 400px; height: 400px; background: #ec4899; top: 50%; right: -100px; }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+        }
+        header.scrolled {
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.04);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+        .logo img { height: 40px; width: auto; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #9898a8;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: #8b5cf6;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a:hover::after { width: 100%; }
+        .btn-header {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-header:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .mobile-toggle span {
+            width: 24px; height: 2px;
+            background: #e8e8ed;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .mobile-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-toggle.open span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 6px 16px 6px 8px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #a78bfa;
+            margin-bottom: 24px;
+        }
+        .hero-badge .dot {
+            width: 8px; height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        .hero h1 {
+            font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+            font-weight: 900;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            color: #9898a8;
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #e8e8ed;
+            padding: 14px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid #2a2a3a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-secondary:hover {
+            border-color: #8b5cf6;
+            color: #fff;
+            background: rgba(139, 92, 246, 0.06);
+        }
+
+        /* Hero Stats */
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid #1e1e2a;
+        }
+        .hero-stat h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .hero-stat h3 span { color: #8b5cf6; }
+        .hero-stat p {
+            font-size: 0.85rem;
+            color: #6b6b80;
+            margin: 0;
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero-card-mock {
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(145deg, #14141e, #0e0e16);
+            border: 1px solid #1e1e2a;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .mock-dots {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .mock-dots span {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+        }
+        .mock-dots span:nth-child(1) { background: #ef4444; }
+        .mock-dots span:nth-child(2) { background: #eab308; }
+        .mock-dots span:nth-child(3) { background: #22c55e; }
+        .mock-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .mock-block {
+            background: #1a1a26;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #24243a;
+        }
+        .mock-block .bar { height: 8px; background: #2a2a3a; border-radius: 4px; margin-bottom: 8px; }
+        .mock-block .bar.wide { width: 80%; }
+        .mock-block .bar.medium { width: 60%; }
+        .mock-block .bar.narrow { width: 40%; }
+        .mock-block .circle {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: #2a2a3a;
+            margin-bottom: 12px;
+        }
+        .mock-block .circle.purple { background: rgba(139, 92, 246, 0.3); }
+        .mock-block .circle.blue { background: rgba(59, 130, 246, 0.3); }
+        .mock-block .circle.pink { background: rgba(236, 72, 153, 0.3); }
+        .mock-block-full {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(139, 92, 246, 0.15);
+        }
+        .mock-block-full .bar { background: rgba(139, 92, 246, 0.2); }
+
+        /* ===== SERVICES ===== */
+        #services { position: relative; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .service-card .icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .service-card .icon.purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+        .service-card .icon.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .service-card .icon.pink { background: rgba(236, 72, 153, 0.15); color: #f472b6; }
+        .service-card .icon.green { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+        .service-card .icon.orange { background: rgba(249, 115, 22, 0.15); color: #fb923c; }
+        .service-card .icon.cyan { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+        .service-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .service-card p {
+            color: #9898a8;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .service-card .price-tag {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 4px 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #a78bfa;
+        }
+
+        /* ===== PORTFOLIO ===== */
+        #portfolio { position: relative; }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .portfolio-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #12121a, #0e0e16);
+            border: 1px solid #1e1e2a;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px;
+        }
+        .portfolio-card:hover {
+            border-color: #2a2a3a;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.1);
+        }
+        .portfolio-card .mock-site {
+            position: absolute;
+            top: 20px; left: 20px; right: 20px;
+            height: 60%;
+            background: #1a1a26;
+            border-radius: 10px;
+            border: 1px solid #24243a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            overflow: hidden;
+        }
+        .portfolio-card .mock-site .col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+        }
+        .portfolio-card .mock-site .col .row {
+            height: 6px;
+            border-radius: 3px;
+            background: #2a2a3a;
+        }
+        .portfolio-card .mock-site .col .row:nth-child(1) { width: 70%; }
+        .portfolio-card .mock-site .col .row:nth-child(2) { width: 90%; }
+        .portfolio-card .mock-site .col .row:nth-child(3) { width: 50%; }
+        .portfolio-card .mock-site .col .row:nth-child(4) { width: 40%; }
+        .portfolio-card .info {
+            position: relative;
+            z-index: 2;
+            margin-top: auto;
+        }
+        .portfolio-card .info .tag {
+            font-size: 0.75rem;
+            color: #8b5cf6;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .portfolio-card .info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+        .portfolio-card .info p {
+            color: #6b6b80;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .portfolio-card .arrow {
+            position: absolute;
+            top: 24px; right: 24px;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a78bfa;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .portfolio-card:hover .arrow {
+            background: #8b5cf6;
+            color: #fff;
+            transform: translate(2px, -2px);
+        }
+        .portfolio-card.featured {
+            grid-column: 1 / -1;
+            min-height: 200px;
+        }
+        .portfolio-card.featured .mock-site {
+            height: 55%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.06), rgba(59, 130, 246, 0.06));
+            border-color: rgba(139, 92, 246, 0.12);
+        }
+
+        /* ===== PROCESS ===== */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+        .process-step {
+            text-align: center;
+            padding: 32px 20px;
+        }
+        .process-step .number {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #fff;
+            margin: 0 auto 16px;
+        }
+        .process-step h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .process-step p {
+            color: #9898a8;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING ===== */
+        #pricing { position: relative; }
+        .pricing-header { text-align: center; }
+        .pricing-header .section-sub { margin: 0 auto; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .pricing-card {
+            text-align: center;
+            padding: 40px 28px;
+            position: relative;
+        }
+        .pricing-card.popular {
+            border-color: #8b5cf6;
+            background: linear-gradient(145deg, #14141e, #0e0e16);
+        }
+        .pricing-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: -12px; left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            padding: 4px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .pricing-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .pricing-card .subtitle {
+            color: #6b6b80;
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+        .pricing-card .price {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .pricing-card .price span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6b6b80;
+        }
+        .pricing-card .price-desc {
+            color: #9898a8;
+            font-size: 0.85rem;
+            margin-bottom: 28px;
+        }
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 28px;
+        }
+        .pricing-card ul li {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #c8c8d0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .pricing-card ul li::before {
+            content: '✓';
+            color: #8b5cf6;
+            font-weight: 700;
+            font-size: 1rem;
+            min-width: 18px;
+        }
+        .pricing-card .btn-pricing {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .pricing-card .btn-pricing.primary {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: #fff;
+        }
+        .pricing-card .btn-pricing.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.35);
+        }
+        .pricing-card .btn-pricing.secondary {
+            background: transparent;
+            color: #e8e8ed;
+            border: 1px solid #2a2a3a;
+        }
+        .pricing-card .btn-pricing.secondary:hover {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.06);
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .testimonial-card .stars {
+            color: #eab308;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .testimonial-card blockquote {
+            font-size: 0.93rem;
+            color: #c8c8d0;
+            line-height: 1.7;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .testimonial-card .author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .testimonial-card .author .avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a2a3a, #1a1a26);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #8b5cf6;
+            border: 1px solid #2a2a3a;
+        }
+        .testimonial-card .author .name { font-weight: 600; font-size: 0.85rem; }
+        .testimonial-card .author .role { font-size: 0.75rem; color: #6b6b80; }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+        }
+        .cta-box {
+            background: linear-gradient(145deg, #12121a, #0e0e16);
+            border: 1px solid #1e1e2a;
+            border-radius: 24px;
+            padding: 64px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent);
+            top: -100px; right: -100px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .cta-box h2 {
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .cta-box p {
+            color: #9898a8;
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-box .btn-primary { font-size: 1rem; padding: 16px 44px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid #1e1e2a;
+            padding: 48px 0 24px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand p {
+            color: #6b6b80;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            max-width: 280px;
+            line-height: 1.6;
+        }
+        .footer-brand .logo { margin-bottom: 8px; }
+        .footer-col h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #9898a8;
+            margin-bottom: 16px;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 8px;
+        }
+        .footer-col ul li a {
+            color: #6b6b80;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+        .footer-col ul li a:hover { color: #a78bfa; }
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid #1e1e2a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .footer-bottom p {
+            color: #6b6b80;
+            font-size: 0.8rem;
+        }
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+        .footer-social a {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            background: #1a1a26;
+            border: 1px solid #24243a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b6b80;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+            color: #fff;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-steps { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+            .hero-visual { order: -1; }
+            .hero-card-mock { max-width: 100%; }
+            .hero-stats { gap: 24px; flex-wrap: wrap; }
+            .services-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .mobile-toggle { display: flex; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 72px; left: 0; right: 0;
+                background: rgba(10, 10, 15, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid #1e1e2a;
+            }
+            .btn-header { display: none; }
+            .nav-links.open .btn-header { display: block; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== AMBIENT GLOW ===== -->
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header id="header">
+        <div class="container header-inner">
+            <a href="#" class="logo">
+                <img src="limm-studio-logo.png" alt="Limm Studio" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                <span style="display:none;">Limm Studio</span>
+            </a>
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact" class="btn-header">Get a Quote</a></li>
+                </ul>
+            </nav>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Now accepting new clients
+                    </div>
+                    <h1>
+                        Websites that<br />
+                        <span class="highlight">grow your business</span>
+                    </h1>
+                    <p>
+                        We craft stunning WordPress websites that drive results. From 
+                        clean business sites to powerful online stores — your vision, 
+                        expertly built.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn-primary">
+                            Start Your Project →
+                        </a>
+                        <a href="#portfolio" class="btn-secondary">
+                            View Our Work
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <h3>30+</h3>
+                            <p>Projects Delivered</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3><span>98</span>%</h3>
+                            <p>Client Satisfaction</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3><span>2</span> wk</h3>
+                            <p>Avg. Delivery Time</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card-mock">
+                        <div class="mock-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="mock-preview">
+                            <div class="mock-block">
+                                <div class="circle purple"></div>
+                                <div class="bar wide"></div>
+                                <div class="bar medium"></div>
+                                <div class="bar narrow"></div>
+                            </div>
+                            <div class="mock-block">
+                                <div class="circle blue"></div>
+                                <div class="bar wide"></div>
+                                <div class="bar medium"></div>
+                                <div class="bar narrow"></div>
+                            </div>
+                            <div class="mock-block">
+                                <div class="circle pink"></div>
+                                <div class="bar wide"></div>
+                                <div class="bar medium"></div>
+                            </div>
+                            <div class="mock-block">
+                                <div class="circle purple"></div>
+                                <div class="bar wide"></div>
+                                <div class="bar medium"></div>
+                            </div>
+                            <div class="mock-block mock-block-full">
+                                <div style="display:flex; gap:16px; align-items:center;">
+                                    <div style="width:48px; height:48px; border-radius:12px; background:rgba(139,92,246,0.2); flex-shrink:0;"></div>
+                                    <div style="flex:1;">
+                                        <div class="bar wide" style="background:rgba(139,92,246,0.2);"></div>
+                                        <div class="bar medium" style="background:rgba(139,92,246,0.12);"></div>
+                                    </div>
+                                    <div style="width:80px; height:32px; border-radius:8px; background:rgba(139,92,246,0.2); flex-shrink:0;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services">
+        <div class="container">
+            <div class="section-label reveal">What We Do</div>
+            <h2 class="section-title reveal">Services</h2>
+            <p class="section-sub reveal">
+                From concept to launch, we handle every aspect of your website so you can focus on running your business.
+            </p>
+            <div class="services-grid">
+                <div class="service-card dark-card reveal">
+                    <div class="icon purple">🖥️</div>
+                    <h3>WordPress Design</h3>
+                    <p>Custom-designed WordPress websites tailored to your brand. Clean, modern, and built to convert visitors into customers.</p>
+                    <span class="price-tag">Starting at £499</span>
+                </div>
+                <div class="service-card dark-card reveal">
+                    <div class="icon blue">🛒</div>
+                    <h3>E-Commerce</h3>
+                    <p>Full WooCommerce stores with product management, payment integration, and seamless checkout experiences.</p>
+                    <span class="price-tag">Starting at £899</span>
+                </div>
+                <div class="service-card dark-card reveal">
+                    <div class="icon pink">📱</div>
+                    <h3>Responsive Design</h3>
+                    <p>Every site we build looks flawless on every device — desktop, tablet, and mobile. No exceptions.</p>
+                    <span class="price-tag">Included in all plans</span>
+                </div>
+                <div class="service-card dark-card reveal">
+                    <div class="icon green">⚡</div>
+                    <h3>Performance Optimization</h3>
+                    <p>Lightning-fast load times with advanced caching, image optimization, and clean code. Speed is a feature.</p>
+                    <span class="price-tag">From £199</span>
+                </div>
+                <div class="service-card dark-card reveal">
+                    <div class="icon orange">🔍</div>
+                    <h3>SEO Setup</h3>
+                    <p>On-page SEO optimization so your site ranks on Google from day one. Meta tags, schema, sitemaps, and more.</p>
+                    <span class="price-tag">Starting at £149</span>
+                </div>
+                <div class="service-card dark-card reveal">
+                    <div class="icon cyan">🛡️</div>
+                    <h3>Maintenance & Support</h3>
+                    <p>Monthly updates, backups, security monitoring, and 24/7 support to keep your site running smoothly.</p>
+                    <span class="price-tag">From £29/mo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PORTFOLIO ===== -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-label reveal">Recent Work</div>
+            <h2 class="section-title reveal">Portfolio</h2>
+            <p class="section-sub reveal">
+                A selection of websites we've built for our clients. Each project is crafted with care and attention to detail.
+            </p>
+            <div class="portfolio-grid">
+                <div class="portfolio-card featured reveal">
+                    <div class="mock-site">
+                        <div class="col">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="col">
+                            <div class="row"></div>
+                            <div class="row"></div>
+                        </div>
+                        <div class="col" style="display:none;"></div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="info">
+                        <div class="tag">Featured Project</div>
+                        <h3>Luxury Boutique Hotel</h3>
+                        <p>Full WordPress site with booking integration and gallery</p>
+                    </div>
+                </div>
+                <div class="portfolio-card reveal">
+                    <div class="mock-site" style="height:50%;">
+                        <div style="display:flex; gap:8px; width:100%;">
+                            <div style="width:40px; height:40px; border-radius:50%; background:#2a2a3a; flex-shrink:0;"></div>
+                            <div style="flex:1;">
+                                <div style="height:8px; width:60%; background:#2a2a3a; border-radius:4px; margin-bottom:6px;"></div>
+                                <div style="height:8px; width:40%; background:#2a2a3a; border-radius:4px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="info">
+                        <div class="tag">E-Commerce</div>
+                        <h3>Organic Skincare Store</h3>
+                        <p>WooCommerce store with 200+ products</p>
+                    </div>
+                </div>
+                <div class="portfolio-card reveal">
+                    <div class="mock-site" style="height:50%;">
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; width:100%;">
+                            <div style="height:40px; background:#2a2a3a; border-radius:6px;"></div>
+                            <div style="height:40px; background:#2a2a3a; border-radius:6px;"></div>
+                            <div style="height:40px; background:#2a2a3a; border-radius:6px;"></div>
+                        </div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="info">
+                        <div class="tag">Professional Services</div>
+                        <h3>Law Firm Website</h3>
+                        <p>Professional site with client portal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section>
+        <div class="container">
+            <div class="section-label reveal text-center" style="text-align:center;">How It Works</div>
+            <h2 class="section-title reveal" style="text-align:center;">Our Process</h2>
+            <p class="section-sub reveal" style="text-align:center; margin:0 auto 0;">
+                A simple, transparent process from start to launch.
+            </p>
+            <div class="process-steps">
+                <div class="process-step dark-card reveal">
+                    <div class="number">1</div>
+                    <h3>Discovery</h3>
+                    <p>We learn about your business, goals, and vision through a detailed consultation.</p>
+                </div>
+                <div class="process-step dark-card reveal">
+                    <div class="number">2</div>
+                    <h3>Design</h3>
+                    <p>We create a custom design concept and refine it until it's perfect.</p>
+                </div>
+                <div class="process-step dark-card reveal">
+                    <div class="number">3</div>
+                    <h3>Build</h3>
+                    <p>We develop your site with clean code, testing every detail along the way.</p>
+                </div>
+                <div class="process-step dark-card reveal">
+                    <div class="number">4</div>
+                    <h3>Launch</h3>
+                    <p>We deploy your site and provide training so you can manage it with confidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section id="pricing">
+        <div class="container">
+            <div class="pricing-header">
+                <div class="section-label reveal">Pricing</div>
+                <h2 class="section-title reveal">Simple & Transparent</h2>
+                <p class="section-sub reveal">
+                    No hidden fees. No surprises. Choose the plan that fits your needs.
+                </p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card dark-card reveal">
+                    <h3>Starter</h3>
+                    <p class="subtitle">Perfect for small businesses</p>
+                    <div class="price">£499 <span>one-time</span></div>
+                    <p class="price-desc">Plus £29/mo hosting & maintenance</p>
+                    <ul>
+                        <li>5-page WordPress site</li>
+                        <li>Mobile responsive design</li>
+                        <li>Contact form integration</li>
+                        <li>Basic SEO setup</li>
+                        <li>1 month support</li>
+                    </ul>
+                    <button class="btn-pricing secondary">Get Started</button>
+                </div>
+                <div class="pricing-card dark-card popular reveal">
+                    <h3>Business</h3>
+                    <p class="subtitle">Best value for growing businesses</p>
+                    <div class="price">£899 <span>one-time</span></div>
+                    <p class="price-desc">Plus £49/mo hosting & maintenance</p>
+                    <ul>
+                        <li>10-page WordPress site</li>
+                        <li>Custom design & branding</li>
+                        <li>Advanced SEO optimization</li>
+                        <li>Google Analytics setup</li>
+                        <li>Social media integration</li>
+                        <li>3 months support</li>
+                    </ul>
+                    <button class="btn-pricing primary">Get Started</button>
+                </div>
+                <div class="pricing-card dark-card reveal">
+                    <h3>E-Commerce</h3>
+                    <p class="subtitle">For online stores</p>
+                    <div class="price">£1,499 <span>one-time</span></div>
+                    <p class="price-desc">Plus £79/mo hosting & maintenance</p>
+                    <ul>
+                        <li>Full WooCommerce store</li>
+                        <li>Up to 100 products</li>
+                        <li>Payment gateway setup</li>
+                        <li>Inventory management</li>
+                        <li>Product uploads included</li>
+                        <li>6 months support</li>
+                    </ul>
+                    <button class="btn-pricing secondary">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section>
+        <div class="container">
+            <div class="section-label reveal">Testimonials</div>
+            <h2 class="section-title reveal">What Our Clients Say</h2>
+            <p class="section-sub reveal">
+                Don't take our word for it — here's what our clients have to say.
+            </p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card dark-card reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Limm Studio transformed our online presence. Our new site loads twice as fast and our enquiries have tripled. Highly recommended!"</blockquote>
+                    <div class="author">
+                        <div class="avatar">SK</div>
+                        <div>
+                            <div class="name">Sarah Khan</div>
+                            <div class="role">Owner, The London Cafe</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card dark-card reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Professional, responsive, and incredibly talented. They took my vague ideas and turned them into a stunning website that perfectly represents my brand."</blockquote>
+                    <div class="author">
+                        <div class="avatar">JM</div>
+                        <div>
+                            <div class="name">James Mitchell</div>
+                            <div class="role">Founder, Mitchell Coaching</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card dark-card reveal">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>"Our e-commerce store went from concept to launch in just two weeks. Sales started rolling in on day one. Worth every penny."</blockquote>
+                    <div class="author">
+                        <div class="avatar">EL</div>
+                        <div>
+                            <div class="name">Emma Lewis</div>
+                            <div class="role">CEO, Pure Glow Skincare</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-box reveal">
+                <h2>Ready to Build Your Website?</h2>
+                <p>Book a free 30-minute consultation call. No pressure, just a friendly chat about your project.</p>
+                <button class="btn-primary">
+                    Book a Free Call →
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo" style="margin-bottom:12px;">
+                        <img src="limm-studio-logo.png" alt="Limm Studio" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                        <span style="display:none;">Limm Studio</span>
+                    </a>
+                    <p>Crafting beautiful, high-performance WordPress websites for businesses that want to stand out online.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">E-Commerce</a></li>
+                        <li><a href="#">SEO</a></li>
+                        <li><a href="#">Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Portfolio</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:hello@limmstudio.com">hello@limmstudio.com</a></li>
+                        <li><a href="#">Book a Call</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 Limm Studio. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="Facebook">👍</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== Header scroll effect =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+        });
+
+        // ===== Mobile menu toggle =====
+        const toggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+        // Close menu on link click
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                toggle.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ===== Scroll reveal animations =====
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== Smooth scroll for nav links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
