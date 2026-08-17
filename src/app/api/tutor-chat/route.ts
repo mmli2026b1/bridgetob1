@@ -1,19 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { getCurrentUser, createAdminClient } from "@/lib/supabaseServer";
 import { getTopicBySlug, TopicContent } from "@/lib/content";
 
-// ─── Rate limit config ───────────────────────────────────────────
+// ─── Rate limit config ──────────────────────────────────────
 const DAILY_MESSAGE_LIMIT = 30;
 
-// ─── Anthropic client ────────────────────────────────────────────
-const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
-let anthropic: Anthropic | null = null;
-if (anthropicApiKey) {
-  anthropic = new Anthropic({ apiKey: anthropicApiKey });
+// ─── OpenAI client ──────────────────────────────────────────
+const openaiApiKey = process.env.OPENAI_API_KEY;
+let openai: OpenAI | null = null;
+if (openaiApiKey) {
+  openai = new OpenAI({ apiKey: openaiApiKey });
 }
 
-// ─── Build the system prompt with topic context ──────────────────
+const MODEL = "gpt-4o-mini";
+
+// ─── Build the system prompt with topic context ────────────
 function buildSystemPrompt(topic: TopicContent): string {
   const vocabSection = topic.vocabulary
     ? topic.vocabulary
@@ -58,7 +60,7 @@ RULES:
 7. Never answer for the student — prompt them to speak.`;
 }
 
-// ─── Rate limit helpers ──────────────────────────────────────────
+// ─── Rate limit helpers ──────────────────────────────────────
 async function getDailyMessageCount(
   supabase: any,
   userId: string
@@ -85,7 +87,7 @@ async function incrementMessageCount(supabase: any, userId: string) {
   });
 }
 
-// ─── History ──────────────────────────────────────────────────────
+// ─── History ──────────────────────────────────────────────
 async function getChatHistory(supabase: any, userId: string, topic: string) {
   const { data } = await supabase
     .from("chat_messages")
@@ -113,7 +115,7 @@ async function saveMessage(
   });
 }
 
-// ─── GET: fetch history and remaining count ──────────────────────
+// ─── GET: fetch history and remaining count ──────────────────
 export async function GET(request: NextRequest) {
   try {
     const user = await getCurrentUser();
@@ -141,7 +143,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// ─── POST: send a message and get Claude's reply ────────────────
+// ─── POST: send a message and get the AI's reply ──────────────
 export async function POST(request: NextRequest) {
   try {
     // 1. Auth check
@@ -190,12 +192,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 5. Anthropic check
-    if (!anthropic) {
+    // 5. OpenAI check
+    if (!openai) {
       return NextResponse.json(
         {
           error:
-            "AI tutor is not configured. Please add your ANTHROPIC_API_KEY to .env.local.",
+            "AI tutor is not configured. Please add your OPENAI_API_KEY to .env.local.",
           remaining,
         },
         { status: 500 }
@@ -206,27 +208,28 @@ export async function POST(request: NextRequest) {
     const systemPrompt = buildSystemPrompt(topic);
     const history = await getChatHistory(supabase, user.id, topicSlug);
 
-    const messages: Anthropic.Messages.MessageParam[] = history.map((m: any) => ({
-      role: m.role,
-      content: m.content,
-    }));
+    const chatMessages: OpenAI.Chat.ChatCompletionMessageParam[] = [
+      { role: "system", content: systemPrompt },
+      ...history.map((m: any) => ({
+        role: m.role as "user" | "assistant",
+        content: m.content,
+      })),
+    ];
 
     if (reset || message === "start") {
       // Start a fresh session — ask a practice question
-      const msg = await anthropic.messages.create({
-        model: "claude-sonnet-5",
-        max_tokens: 300,
-        system: systemPrompt,
-        messages: [
-          {
-            role: "user",
-            content: `Start a new practice session for the topic "${topic.title}". Ask me one practice question.`,
-          },
-        ],
+      chatMessages.push({
+        role: "user",
+        content: `Start a new practice session for the topic "${topic.title}". Ask me one practice question.`,
       });
 
-      const reply =
-        (msg.content.find((c: any) => c.type === "text") as any)?.text ?? "";
+      const completion = await openai.chat.completions.create({
+        model: MODEL,
+        max_tokens: 300,
+        messages: chatMessages,
+      });
+
+      const reply = completion.choices[0]?.message?.content ?? "";
 
       // Save assistant message
       await saveMessage(supabase, user.id, topicSlug, "assistant", reply);
@@ -240,17 +243,16 @@ export async function POST(request: NextRequest) {
 
     // 7. Save user message
     await saveMessage(supabase, user.id, topicSlug, "user", message);
-    messages.push({ role: "user", content: message });
+    chatMessages.push({ role: "user", content: message });
 
-    // 8. Get Claude's response
-    const msg = await anthropic.messages.create({
-      model: "claude-sonnet-5",
+    // 8. Get the AI's response
+    const completion = await openai.chat.completions.create({
+      model: MODEL,
       max_tokens: 500,
-      system: systemPrompt,
-      messages,
+      messages: chatMessages,
     });
 
-    const reply = (msg.content.find((c: any) => c.type === "text") as any)?.text ?? "";
+    const reply = completion.choices[0]?.message?.content ?? "";
 
     // 9. Save assistant reply
     await saveMessage(supabase, user.id, topicSlug, "assistant", reply);
