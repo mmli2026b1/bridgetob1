@@ -25,13 +25,11 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Refresh session and get user
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Protected routes — redirect to login if not authenticated
-  const protectedPaths = ["/account", "/chat"];
+  const protectedPaths = ["/account", "/chat", "/mock-exam"];
   const isProtected = protectedPaths.some((path) =>
     request.nextUrl.pathname.startsWith(path)
   );
@@ -48,14 +46,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - api/webhooks (webhooks should not have cookies)
-     * - images, manifests, etc.
-     */
     "/((?!_next/static|_next/image|favicon.ico|api/webhooks|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
