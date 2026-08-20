@@ -177,8 +177,8 @@ export async function POST(request: NextRequest) {
     await supabase.rpc("increment_message_count", { p_user_id: user.id, p_date: today });
 
     return NextResponse.json({ reply, remaining: Math.max(0, remaining - 1) });
-  } catch (error: any) {
+    } catch (error: any) {
     console.error("Mock exam error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ error: "Internal server error", details: error?.message || String(error) }, { status: 500 });
   }
 }

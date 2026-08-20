@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { getTopicBySlug } from "@/lib/content";
-import { Send, Bot, User, RefreshCw, GraduationCap, FileText } from "lucide-react";
+import { Send, Bot, User, RefreshCw, GraduationCap, FileText, Mic, MicOff, Headphones, Volume2 } from "lucide-react";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -39,11 +39,112 @@ export default function MockExamUI() {
   const [turnCount, setTurnCount] = useState(0);
   const [remaining, setRemaining] = useState<number | null>(null);
   const [report, setReport] = useState<string | null>(null);
+
+  // Voice state
+  const [voiceMode, setVoiceMode] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState("");
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<any>(null);
+  const voiceModeRef = useRef(false);
+  const cachedVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
+  const finalizeRef = useRef<(() => void) | null>(null);
+  const messagesRef = useRef<Message[]>([]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, report]);
+
+  useEffect(() => {
+    messagesRef.current = messages;
+  }, [messages]);
+
+  useEffect(() => {
+    voiceModeRef.current = voiceMode;
+  }, [voiceMode]);
+
+  useEffect(() => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    setSpeechSupported(!!SpeechRecognition && "speechSynthesis" in window);
+  }, []);
+
+  // Load and cache the best available voice
+  useEffect(() => {
+    if (!("speechSynthesis" in window)) return;
+
+    const pickBestVoice = () => {
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length === 0) return;
+
+      const priorityPatterns = [
+        /Google UK English Female/i,
+        /Google UK English Male/i,
+        /Microsoft.*Online.*Natural/i,
+        /Microsoft.*Neural/i,
+        /Natural/i,
+      ];
+
+      let best: SpeechSynthesisVoice | undefined;
+      for (const pattern of priorityPatterns) {
+        best = voices.find((v) => pattern.test(v.name) && v.lang.startsWith("en"));
+        if (best) break;
+      }
+      if (!best) best = voices.find((v) => v.lang === "en-GB");
+      if (!best) best = voices.find((v) => v.lang.startsWith("en"));
+
+      cachedVoiceRef.current = best || null;
+    };
+
+    pickBestVoice();
+    window.speechSynthesis.onvoiceschanged = pickBestVoice;
+
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
+  }, []);
+
+  const stripMarkdown = (text: string) => {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/\*(.*?)\*/g, "$1")
+      .replace(/`(.*?)`/g, "$1")
+      .replace(/#{1,6}\s?/g, "")
+      .replace(/^\s*[-•]\s?/gm, "")
+      .replace(/\n{2,}/g, ". ")
+      .replace(/\n/g, " ")
+      .trim();
+  };
+
+  // ─── Text-to-speech ──────────────────────────────────────────
+  const speakMessage = useCallback((text: string, onDone?: () => void) => {
+    if (!("speechSynthesis" in window)) {
+      onDone?.();
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const cleanText = stripMarkdown(text);
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = "en-GB";
+    utterance.rate = 0.98;
+    utterance.pitch = 1;
+    if (cachedVoiceRef.current) utterance.voice = cachedVoiceRef.current;
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      onDone?.();
+    };
+    utterance.onerror = () => {
+      setIsSpeaking(false);
+      onDone?.();
+    };
+
+    setIsSpeaking(true);
+    window.speechSynthesis.speak(utterance);
+  }, []);
 
   const pickPart2Topics = () => {
     const shuffled = [...PART2_POOL].sort(() => Math.random() - 0.5);
@@ -62,7 +163,7 @@ export default function MockExamUI() {
             part1Topic: ctx.p1,
             part2TopicA: ctx.p2a,
             part2TopicB: ctx.p2b,
-            history: messages,
+            history: messagesRef.current,
             userMessage,
           }),
         });
@@ -81,26 +182,139 @@ export default function MockExamUI() {
         setLoading(false);
       }
     },
-    [messages]
+    []
   );
 
+  // ─── Speech-to-text ──────────────────────────────────────────
+  const startListening = useCallback(() => {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+
+    let finalTranscript = "";
+    let silenceTimer: ReturnType<typeof setTimeout> | null = null;
+    let intentionalStop = false;
+
+    const resetSilenceTimer = (recognition: any) => {
+      if (silenceTimer) clearTimeout(silenceTimer);
+      silenceTimer = setTimeout(() => {
+        intentionalStop = true;
+        recognition.stop();
+      }, 6000);
+    };
+
+    const createRecognition = () => {
+      const recognition = new SpeechRecognition();
+      recognition.lang = "en-GB";
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onresult = (event: any) => {
+        let interim = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + " ";
+          } else {
+            interim += transcript;
+          }
+        }
+        resetSilenceTimer(recognition);
+        setLiveTranscript(finalTranscript + interim);
+        if (!voiceModeRef.current) {
+          setInput(finalTranscript + interim);
+        }
+      };
+
+      recognition.onerror = (e: any) => {
+        if (e.error === "no-speech" || e.error === "aborted") return;
+        setIsRecording(false);
+        if (silenceTimer) clearTimeout(silenceTimer);
+      };
+
+      recognition.onend = () => {
+        if (intentionalStop) {
+          setIsRecording(false);
+          if (silenceTimer) clearTimeout(silenceTimer);
+          const finalText = finalTranscript.trim();
+          setLiveTranscript("");
+          if (finalText) {
+            if (voiceModeRef.current) {
+              submitAnswer(finalText);
+            } else {
+              setInput(finalText);
+            }
+          }
+        } else {
+          recognitionRef.current = createRecognition();
+          recognitionRef.current.start();
+        }
+      };
+
+      return recognition;
+    };
+
+    finalizeRef.current = () => {
+      intentionalStop = true;
+      if (silenceTimer) clearTimeout(silenceTimer);
+      recognitionRef.current?.stop();
+    };
+
+    recognitionRef.current = createRecognition();
+    recognitionRef.current.start();
+    setIsRecording(true);
+    setLiveTranscript("");
+    resetSilenceTimer(recognitionRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const toggleRecording = useCallback(() => {
+    if (isRecording) {
+      finalizeRef.current?.();
+      return;
+    }
+    startListening();
+  }, [isRecording, startListening]);
+
+  const toggleVoiceMode = () => {
+    const next = !voiceMode;
+    setVoiceMode(next);
+    voiceModeRef.current = next;
+    if (!next) {
+      window.speechSynthesis?.cancel();
+      recognitionRef.current?.stop();
+      setIsRecording(false);
+      setLiveTranscript("");
+    }
+  };
+
+  // ─── Exam flow ──────────────────────────────────────────────
   const startExam = async (topicSlug: string) => {
     setPart1Topic(topicSlug);
     const p2 = pickPart2Topics();
     setPart2Topics(p2);
     setMessages([]);
+    messagesRef.current = [];
     setTurnCount(0);
     setStage("part1");
 
     const reply = await callApi("start", null, { p1: topicSlug });
-    if (reply) setMessages([{ role: "assistant", content: reply }]);
+    if (reply) {
+      setMessages([{ role: "assistant", content: reply }]);
+      if (voiceModeRef.current) {
+        setTimeout(() => {
+          speakMessage(reply, () => {
+            if (voiceModeRef.current) setTimeout(() => startListening(), 1200);
+          });
+        }, 200);
+      }
+    }
   };
 
-  const sendAnswer = async () => {
-    if (!input.trim() || loading) return;
-    const userText = input;
+  const submitAnswer = async (answerText: string) => {
+    if (!answerText.trim() || loading) return;
     setInput("");
-    setMessages((prev) => [...prev, { role: "user", content: userText }]);
+    setMessages((prev) => [...prev, { role: "user", content: answerText }]);
 
     const nextTurn = turnCount + 1;
     setTurnCount(nextTurn);
@@ -113,37 +327,26 @@ export default function MockExamUI() {
     };
 
     if (stage === "part1") {
-      if (nextTurn >= PART1_TURNS) {
-        apiStage = "transition-to-part2";
-      } else if (nextTurn === PART1_TURNS - 1) {
-        apiStage = "part1-final";
-      } else {
-        apiStage = "part1";
-      }
+      if (nextTurn >= PART1_TURNS) apiStage = "transition-to-part2";
+      else if (nextTurn === PART1_TURNS - 1) apiStage = "part1-final";
+      else apiStage = "part1";
     } else if (stage === "part2a") {
       const localTurn = nextTurn - PART1_TURNS;
-      if (localTurn >= PART2_TURNS_PER_TOPIC) {
-        apiStage = "transition-to-part2b";
-      } else {
-        apiStage = "part2a";
-      }
+      apiStage = localTurn >= PART2_TURNS_PER_TOPIC ? "transition-to-part2b" : "part2a";
     } else if (stage === "part2b") {
       const localTurn = nextTurn - PART1_TURNS - PART2_TURNS_PER_TOPIC;
-      if (localTurn >= PART2_TURNS_PER_TOPIC) {
-        apiStage = "closing";
-      } else {
-        apiStage = "part2b";
-      }
+      apiStage = localTurn >= PART2_TURNS_PER_TOPIC ? "closing" : "part2b";
     } else if (stage === "closing") {
       apiStage = "report";
     }
 
-    const reply = await callApi(apiStage, userText, ctx);
+    const reply = await callApi(apiStage, answerText, ctx);
     if (!reply) return;
 
     if (apiStage === "report") {
       setReport(reply);
       setStage("done");
+      window.speechSynthesis?.cancel();
       return;
     }
 
@@ -152,7 +355,17 @@ export default function MockExamUI() {
     if (apiStage === "transition-to-part2") setStage("part2a");
     else if (apiStage === "transition-to-part2b") setStage("part2b");
     else if (apiStage === "closing") setStage("closing");
+
+    if (voiceModeRef.current) {
+      setTimeout(() => {
+        speakMessage(reply, () => {
+          if (voiceModeRef.current) setTimeout(() => startListening(), 1200);
+        });
+      }, 200);
+    }
   };
+
+  const sendAnswer = () => submitAnswer(input);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -162,14 +375,20 @@ export default function MockExamUI() {
   };
 
   const restart = () => {
+    window.speechSynthesis?.cancel();
+    recognitionRef.current?.stop();
     setStage("select-topic");
     setPart1Topic(null);
     setPart2Topics([]);
     setMessages([]);
+    messagesRef.current = [];
     setTurnCount(0);
     setReport(null);
+    setIsRecording(false);
+    setLiveTranscript("");
   };
 
+  // ─── Render: report screen ──────────────────────────────────
   if (stage === "done" && report) {
     return (
       <div className="mx-auto max-w-3xl">
@@ -191,6 +410,7 @@ export default function MockExamUI() {
     );
   }
 
+  // ─── Render: topic selection screen ─────────────────────────
   if (stage === "select-topic") {
     return (
       <div className="mx-auto max-w-2xl">
@@ -203,6 +423,26 @@ export default function MockExamUI() {
             </p>
           </div>
         </div>
+
+        {speechSupported && (
+          <div className="mb-4 flex items-center justify-between rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <Headphones className="h-4 w-4 text-emerald-600" />
+              Practice by speaking instead of typing
+            </div>
+            <button
+              onClick={toggleVoiceMode}
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                voiceMode
+                  ? "bg-emerald-600 text-white hover:bg-emerald-500"
+                  : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              {voiceMode ? "Voice Mode: ON" : "Voice Mode: OFF"}
+            </button>
+          </div>
+        )}
+
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <h3 className="mb-4 text-sm font-bold text-slate-900">Choose your Part 1 topic:</h3>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -233,6 +473,7 @@ export default function MockExamUI() {
     );
   }
 
+  // ─── Render: exam in progress ────────────────────────────────
   const stageLabel =
     stage === "part1"
       ? "Part 1 — Your Topic"
@@ -256,6 +497,13 @@ export default function MockExamUI() {
         )}
       </div>
 
+      {voiceMode && (
+        <div className="mb-4 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <Headphones className="h-4 w-4 shrink-0" />
+          <span>Voice Mode is on — tap the mic to answer. Tap again when you're done, or pause for 6 seconds.</span>
+        </div>
+      )}
+
       <div className="mb-4 flex-1 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-4 shadow-sm min-h-[400px] max-h-[500px]">
         <div className="space-y-4">
           {messages.map((msg, i) => (
@@ -276,6 +524,16 @@ export default function MockExamUI() {
               </div>
             </div>
           ))}
+          {isRecording && (
+            <div className="flex items-start gap-3 flex-row-reverse">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-400">
+                <Mic className="h-4 w-4" />
+              </div>
+              <div className="max-w-[80%] rounded-2xl border-2 border-dashed border-emerald-300 bg-emerald-50/50 px-4 py-3 text-sm leading-relaxed text-slate-500">
+                {liveTranscript || "Listening…"}
+              </div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>
@@ -285,18 +543,48 @@ export default function MockExamUI() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Type your answer…"
+          placeholder={voiceMode ? "Voice Mode active — tap the mic to speak" : "Type your answer…"}
           rows={2}
-          className="flex-1 resize-none rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
+          disabled={voiceMode}
+          className="flex-1 resize-none rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100 disabled:bg-slate-50"
         />
-        <button
-          onClick={sendAnswer}
-          disabled={loading || !input.trim()}
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm transition-all hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <Send className="h-5 w-5" />
-        </button>
+        {speechSupported && (
+          <button
+            onClick={toggleRecording}
+            className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl shadow-sm transition-all ${
+              isRecording
+                ? "animate-pulse bg-red-500 text-white hover:bg-red-400"
+                : "border border-slate-200 bg-white text-slate-500 hover:bg-slate-50"
+            }`}
+            title={isRecording ? "Tap to finish and send" : "Speak your answer"}
+          >
+            {isRecording ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
+          </button>
+        )}
+        {!voiceMode && (
+          <button
+            onClick={sendAnswer}
+            disabled={loading || !input.trim()}
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm transition-all hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <Send className="h-5 w-5" />
+          </button>
+        )}
       </div>
+
+      {isRecording && (
+        <div className="mt-2 flex items-center gap-2 text-xs text-red-500">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+          Listening… take your time. Tap the mic again when you're done.
+        </div>
+      )}
+
+      {isSpeaking && (
+        <div className="mt-2 flex items-center gap-2 text-xs text-emerald-500">
+          <Volume2 className="h-3 w-3 animate-pulse" />
+          Examiner is speaking…
+        </div>
+      )}
 
       {loading && (
         <div className="mt-2 flex items-center gap-2 text-xs text-slate-400">
