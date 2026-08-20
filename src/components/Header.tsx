@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabaseClient";
 import { useLanguage } from "@/components/LanguageProvider";
 import { t } from "@/lib/i18n";
-import { User, LogOut, BookOpen, MessageCircle, Globe } from "lucide-react";
+import { User, LogOut, BookOpen, MessageCircle, Globe, GraduationCap } from "lucide-react";
 
 export default function Header() {
   const [user, setUser] = useState<any>(null);
@@ -66,13 +66,22 @@ export default function Header() {
             {t("header.topics", lang)}
           </Link>
           {user && (
-            <Link
-              href="/chat"
-              className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
-            >
-              <MessageCircle className="h-4 w-4" />
-              {t("header.aiTutor", lang)}
-            </Link>
+            <>
+              <Link
+                href="/chat"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+              >
+                <MessageCircle className="h-4 w-4" />
+                {t("header.aiTutor", lang)}
+              </Link>
+              <Link
+                href="/mock-exam"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+              >
+                <GraduationCap className="h-4 w-4" />
+                Mock Exam
+              </Link>
+            </>
           )}
         </nav>
 
@@ -144,12 +153,20 @@ export default function Header() {
           {t("header.topics", lang)}
         </Link>
         {user && (
-          <Link
-            href="/chat"
-            className="flex-1 text-center text-sm font-medium text-slate-500 hover:text-slate-900"
-          >
-            {t("header.aiTutor", lang)}
-          </Link>
+          <>
+            <Link
+              href="/chat"
+              className="flex-1 text-center text-sm font-medium text-slate-500 hover:text-slate-900"
+            >
+              {t("header.aiTutor", lang)}
+            </Link>
+            <Link
+              href="/mock-exam"
+              className="flex-1 text-center text-sm font-medium text-slate-500 hover:text-slate-900"
+            >
+              Mock Exam
+            </Link>
+          </>
         )}
       </div>
     </header>
