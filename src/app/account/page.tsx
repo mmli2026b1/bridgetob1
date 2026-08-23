@@ -30,6 +30,7 @@ export default function AccountPage() {
   const [loading, setLoading] = useState(true);
   const [portalLoading, setPortalLoading] = useState(false);
   const [ebookLoading, setEbookLoading] = useState(false);
+  const [upgradeLoading, setUpgradeLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
   const { lang } = useLanguage();
@@ -66,6 +67,26 @@ export default function AccountPage() {
 
     load();
   }, []);
+
+  const handleUpgrade = async () => {
+    setUpgradeLoading(true);
+    try {
+      const res = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const { url, error } = await res.json();
+      if (error) {
+        toast.error(error);
+        setUpgradeLoading(false);
+        return;
+      }
+      window.location.href = url;
+    } catch {
+      toast.error(t("account.error", lang));
+      setUpgradeLoading(false);
+    }
+  };
 
   const handleManageSubscription = async () => {
     setPortalLoading(true);
@@ -227,13 +248,16 @@ export default function AccountPage() {
                 <p className="text-sm text-slate-500">
                   {t("account.freePlanDesc", lang)}
                 </p>
-                <Link
-                  href="/signup"
-                  className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-emerald-500 hover:shadow-md"
+                <button
+                  onClick={handleUpgrade}
+                  disabled={upgradeLoading}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-emerald-500 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {t("account.upgradeCta", lang)}
+                  {upgradeLoading
+                    ? t("account.loading", lang)
+                    : t("account.upgradeCta", lang)}
                   <ArrowRight className={`h-4 w-4 ${lang === "ar" ? "rtl-flip" : ""}`} />
-                </Link>
+                </button>
               </>
             )}
           </div>

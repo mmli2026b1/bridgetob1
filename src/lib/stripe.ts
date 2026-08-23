@@ -7,14 +7,14 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export const PLANS = {
   monthly: {
-    priceId: "price_placeholder_monthly", // Replace with your Stripe Price ID
+    priceId: "price_1U6z0GBBkEoljlxzq9PRoNKp",
     name: "Monthly Premium",
     description: "Full access to all topics, grammar, and AI tutor chat",
     amount: 999, // £9.99 in pence
     interval: "month" as const,
   },
   ebook: {
-    priceId: "price_placeholder_ebook", // Replace with your Stripe one-time Price ID
+    priceId: "price_1U6z6xBBkEoIjIxz4nndUz8l",
     name: "Success Bridge Ebook",
     description: "The complete B1 Speaking & Citizenship exam prep ebook",
     amount: 999, // £9.99 in pence
