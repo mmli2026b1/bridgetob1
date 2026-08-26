@@ -567,4 +567,166 @@ Question to ask the examiner:
 سؤال يُطرح على الممتحن:
 "هل لديك هواية؟ هل هناك شيء جديد بدأت ممارسته مؤخراً؟"`,
   },
+  {
+    id: "topic-travel",
+    titleEn: "Part 1, Topic D — Travel",
+    titleAr: "الجزء الأول، الموضوع د — السفر",
+    contentEn: `Key vocabulary:
+Countries I've visited, What I like about travel, How I travel, Memorable experience, Adventure, Destination, Cuisine, Culture, Budget, Memories, Passport/Luggage, Book in advance
+
+Model questions and answers:
+
+Q: Which countries have you visited?
+I've been to several countries — Turkey, Egypt, and Morocco. My favourite trip was to Turkey because the food was incredible, the history was fascinating, and the people were very warm.
+
+Q: What is your favourite place you have ever visited?
+My absolute favourite was Istanbul. The mix of old and new is breathtaking — ancient mosques next to modern cafés.
+
+Q: What do you like most about travelling?
+What I love most is discovering new cultures — the food, the traditions, the way people live. It broadens your mind.
+
+Q: Do you think travel is important? Why?
+Yes, very much. Travel teaches you things that no classroom can. It builds confidence, develops empathy, and creates memories that last forever.
+
+Q: How do you usually travel when you go on a trip?
+For international trips we fly — it's the fastest option. Within the UK, I prefer taking the train.
+
+Q: Can you tell me about a memorable travel experience?
+My most memorable experience was watching the sunrise over a historical site on our trip to Turkey. It was one of those moments that reminds you how beautiful the world is.
+
+Q: Have you ever had a problem while travelling?
+Yes! Once our flight was delayed for four hours. It was frustrating, but we stayed calm, found a nice restaurant in the airport, and made the best of it.
+
+Q: Is there anywhere you would love to visit in the future?
+Yes — Japan is my dream destination. The culture is unlike anything I've experienced.
+
+Useful phrases:
+- I've visited... and the highlight was...
+- What I love most about travel is... because it helps me...
+- I usually travel by [plane/train/car] because...
+- One of my most memorable experiences was when...
+- I'd love to visit [Japan] because I've always been fascinated by...
+
+Question to ask the examiner:
+"Have you done much travelling? Is there anywhere in the UK you'd like to visit?"`,
+    contentAr: `المفردات الأساسية:
+البلدان التي زرتها، ما أحبه في السفر، طريقة سفري، تجربة لا تُنسى، مغامرة، وجهة، مطبخ/أكل، ثقافة، ميزانية، ذكريات، جواز سفر/أمتعة، يحجز مسبقاً
+
+أسئلة وأجوبة نموذجية:
+
+س: ما هي البلدان التي زرتها؟
+لقد زرت عدة دول — تركيا، مصر، والمغرب. كانت رحلتي المفضلة إلى تركيا لأن الطعام كان رائعاً، والتاريخ كان مثيراً، والناس كانوا دافئين جداً.
+
+س: ما هو المكان المفضل الذي زرته على الإطلاق؟
+كان المفضل المطلق لدي هو إسطنبول. مزيج القديم والجديد مذهل — مساجد قديمة بجانب مقاهي حديثة.
+
+س: ما الذي تحبه أكثر في السفر؟
+ما أحبه أكثر هو اكتشاف ثقافات جديدة — الطعام، التقاليد، طريقة عيش الناس. إنه يوسع عقلك.
+
+س: هل تعتقد أن السفر مهم؟ لماذا؟
+نعم، كثيراً. يعلمك السفر أشياء لا يستطيع أي فصل دراسي تعليمها. يبني الثقة، ويطور التعاطف، ويخلق ذكريات تدوم إلى الأبد.
+
+س: كيف تسافر عادة عندما تذهب في رحلة؟
+بالنسبة للرحلات الدولية نسافر بالطائرة — إنه الخيار الأسرع. داخل المملكة المتحدة، أفضل ركوب القطار.
+
+س: هل يمكنك إخباري عن تجربة سفر لا تُنسى؟
+كانت تجربتي الأكثر تميزاً هي مشاهدة شروق الشمس فوق موقع تاريخي في رحلتنا إلى تركيا.
+
+س: هل واجهت مشكلة أثناء السفر؟
+نعم! ذات مرة تأخرت رحلتنا الجوية أربع ساعات. كان الأمر محبطاً، لكننا بقينا هادئين واستفدنا من الوقت.
+
+س: هل هناك مكان تحب زيارته في المستقبل؟
+نعم — اليابان هي وجهتي المفضلة. الثقافة لا تشبه أي شيء جربته من قبل.
+
+عبارات مفيدة:
+- لقد زرت... وكانت أبرز لحظة هي...
+- ما أحبه أكثر في السفر هو... لأنه يساعدني على...
+- عادة أسافر بـ[الطائرة/القطار/السيارة] لأن...
+- كانت إحدى أكثر تجاربي تميزاً عندما...
+- أود زيارة [اليابان] لأنني دائماً منبهر بـ...
+
+سؤال يُطرح على الممتحن:
+"هل سافرت كثيراً؟ هل هناك مكان في المملكة المتحدة ترغب في زيارته؟"`,
+  },
+  {
+    id: "topic-my-country",
+    titleEn: "Part 1, Topic E — My Country",
+    titleAr: "الجزء الأول، الموضوع هـ — بلدي",
+    contentEn: `Key vocabulary:
+Capital city, Population, Culture, Climate/Weather, Traditional food, Landscape, Religion, Language, Modern city, Historical sites, People/Citizens, Hospitality
+
+Model questions and answers:
+
+Q: What is the weather like in your country?
+The weather in my country is generally hot and sunny. In summer, the temperature can reach over 40 degrees, while winters are mild and pleasant.
+
+Q: How does the weather in your country compare to the UK?
+It is completely different. The UK is often grey, cold, and rainy, whereas my country has blue skies and sunshine most of the year.
+
+Q: Can you tell me about an important social habit in your country?
+Hospitality is our most important habit. We love welcoming guests, and it is polite to offer them tea, coffee, and food as soon as they arrive.
+
+Q: How do people treat their neighbours in your home country?
+Neighbours have a very close relationship. They visit each other often, share food, and help one another during difficult times.
+
+Q: What is the most important celebration in your country?
+The most important celebration is Eid — a national holiday where everyone celebrates together. Families gather at the grandparents' house for a big lunch.
+
+Q: What is the national dish of your country?
+Our national dish is made of rice, meat or chicken, and a mix of traditional spices. It is absolutely delicious.
+
+Q: What is the most famous city or landmark in your country?
+The most famous place is known worldwide for its beautiful architecture and long history.
+
+Q: Why should people visit your country?
+People should visit not only for its historical sites and beautiful weather, but also to experience the incredible warmth and kindness of the people.
+
+Useful phrases:
+- I come from [country]...
+- My country is known for its [food/history/culture/landscape]...
+- One of the things I miss most is... because...
+- The main difference between life here and in my country is...
+- I would recommend visiting [place] because...
+
+Question to ask the examiner:
+"Have you ever visited any part of your country that you found particularly beautiful or interesting?"`,
+    contentAr: `المفردات الأساسية:
+العاصمة، السكان، ثقافة، المناخ/الطقس، أكل تقليدي، مناظر طبيعية، دين، لغة، مدينة حديثة، مواقع تاريخية، المواطنون/الناس، الضيافة
+
+أسئلة وأجوبة نموذجية:
+
+س: كيف هو الطقس في بلدك؟
+الطقس في بلدي حار ومشمس بشكل عام. في الصيف، يمكن أن تصل درجة الحرارة إلى أكثر من 40 درجة، بينما الشتاء معتدل ولطيف.
+
+س: كيف يقارن الطقس في بلدك بالمملكة المتحدة؟
+إنه مختلف تماماً. غالباً ما تكون المملكة المتحدة رمادية وباردة وممطرة، بينما بلدي لديه سماء زرقاء وشمس معظم العام.
+
+س: هل يمكنك إخباري عن عادة اجتماعية مهمة في بلدك؟
+الضيافة هي أهم عاداتنا. نحب الترحيب بالضيوف، ومن المهذب تقديم الشاي والقهوة والطعام لهم فور وصولهم.
+
+س: كيف يعامل الناس جيرانهم في بلدك الأصلي؟
+لدى الجيران علاقة وثيقة جداً. يزورون بعضهم البعض كثيراً، ويتشاركون الطعام، ويساعدون بعضهم البعض في الأوقات الصعبة.
+
+س: ما هو أهم احتفال في بلدك؟
+أهم احتفال هو عيد الفطر — عطلة وطنية يحتفل فيها الجميع معاً. تجتمع العائلات في منزل الأجداد لتناول غداء كبير.
+
+س: ما هو الطبق الوطني في بلدك؟
+طبقنا الوطني مصنوع من الأرز واللحم أو الدجاج ومزيج من التوابل التقليدية. إنه لذيذ للغاية.
+
+س: ما هي أشهر مدينة أو معلم في بلدك؟
+أشهر مكان معروف عالمياً بهندسته المعمارية الجميلة وتاريخه الطويل.
+
+س: لماذا يجب على الناس زيارة بلدك؟
+يجب على الناس الزيارة ليس فقط من أجل مواقعه التاريخية وطقسه الجميل، ولكن أيضاً لتجربة الدفء واللطف المذهلين لأهله.
+
+عبارات مفيدة:
+- أنا من [بلد]...
+- بلدي معروف بـ[طعامه/تاريخه/ثقافته/مناظره الطبيعية]...
+- أحد الأشياء التي أفتقدها أكثر هو... لأن...
+- الفرق الرئيسي بين الحياة هنا وفي بلدي هو...
+- أوصي بزيارة [مكان] لأن...
+
+سؤال يُطرح على الممتحن:
+"هل زرت أي جزء من بلدك وجدته جميلاً أو مثيراً للاهتمام بشكل خاص؟"`,
+  },
 ];
