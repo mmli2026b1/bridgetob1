@@ -1128,5 +1128,167 @@ Question to ask the examiner:
 سؤال يُطرح على الممتحن:
 "هل لديك عيد أو احتفال مفضل في المملكة المتحدة تستمتع به؟"`,
   },
+
+  {
+    id: "chapter6",
+    titleEn: "Chapter 6 — Essential Grammar (B1 Level)",
+    titleAr: "الفصل ٦ — القواعد الضرورية — مستوى B1",
+    contentEn: `You don't need all English grammar. These are just the grammar points you need in the exam.
+
+1. Present Simple — for routine and facts
+I usually take the bus to work.
+She works as a care worker.
+We eat dinner together every evening.
+I don't have a car.
+
+2. Past Simple — for finished events
+I visited my parents last weekend.
+We moved to the UK three years ago.
+I didn't go out yesterday — I stayed at home.
+
+3. Present Perfect — for experiences and recent past
+I have lived here for five years.
+She has worked there since 2018.
+I have never been to Scotland.
+We have just had dinner.
+Have you ever tried sushi?
+
+4. Future — for plans and predictions
+I will visit my family next month. (prediction or decision)
+We are going to celebrate Eid next week. (planned)
+I think it will be a great experience.
+
+5. Preferences — very important in the exam
+I prefer the bus to the car.
+I'd rather walk than drive.
+I would prefer to stay at home this evening.
+I prefer cooking to eating out.
+
+6. for / since — for time duration
+"for" + duration: I have lived here FOR three years.
+"since" + starting point: I have worked here SINCE January.
+We have been married FOR ten years.
+
+7. Contractions — make your speech natural
+I'm, You're, He's, She's, We're, They're
+I've, I'd, Can't, Don't, Didn't, Won't
+Use contractions — they sound more natural than full forms.`,
+    contentAr: `لا تحتاج كل قواعد اللغة الإنجليزية. هذه فقط القواعد التي تحتاجها في الاختبار.
+
+١. المضارع البسيط — للروتين والحقائق
+I usually take the bus to work.
+She works as a care worker.
+We eat dinner together every evening.
+I don't have a car.
+
+٢. الماضي البسيط — لأحداث انتهت
+I visited my parents last weekend.
+We moved to the UK three years ago.
+I didn't go out yesterday — I stayed at home.
+
+٣. المضارع التام — للتجارب وما بدأ في الماضي
+I have lived here for five years.
+She has worked there since 2018.
+I have never been to Scotland.
+We have just had dinner.
+Have you ever tried sushi?
+
+٤. المستقبل — للخطط والتنبؤات
+I will visit my family next month. (تنبؤ أو قرار)
+We are going to celebrate Eid next week. (خطة مسبقة)
+I think it will be a great experience.
+
+٥. التفضيل — مهم جداً في الاختبار
+I prefer the bus to the car.
+I'd rather walk than drive.
+I would prefer to stay at home this evening.
+I prefer cooking to eating out.
+
+٦. for / since — للمدة الزمنية
+"for" + مدة: I have lived here FOR three years.
+"since" + بداية وقت: I have worked here SINCE January.
+We have been married FOR ten years.
+
+٧. الاختصارات — تجعل حديثك طبيعياً
+I'm, You're, He's, She's, We're, They're
+I've, I'd, Can't, Don't, Didn't, Won't
+استخدم الاختصارات — هي أكثر طبيعية من الأشكال الكاملة.`,
+  },
+  {
+    id: "chapter7",
+    titleEn: "Chapter 7 — Test Day Tips",
+    titleAr: "الفصل ٧ — نصائح يوم الاختبار",
+    contentEn: `Common mistakes — avoid them!
+- Answering with just Yes or No — always add a reason and details
+- Long silence — use rescue sentences: "Let me think..."
+- Memorising answers word for word — sounds unnatural and rehearsed
+- Forgetting to ask the examiner a question — required of you, at least one!
+- Speaking too fast — stay calm, breathe, speak clearly
+- Giving up if you make a mistake — always continue!
+
+The Perfect Answer Formula:
+A good answer = Yes/No + reason + personal example
+
+Q: Do you like public transport?
+Weak: "Yes."
+B1 answer: "Yes, I like it because it's cheap and easy to use. For example, I take the bus every day to work — it saves me money and I don't have to worry about parking or traffic."
+
+Final Checklist — Test Day:
+- I read the whole book and understood every chapter
+- I chose my topic and practised it until I can speak for 4 minutes
+- I prepared the topic form with clear points
+- I practised speaking out loud and recorded myself
+- I know the rescue sentences by heart
+- I have 3 questions ready for the examiner
+- I reviewed all seven official topics completely
+- My passport is ready and valid
+- I know exactly where and when the exam is
+- I slept well the night before the exam
+
+Final message:
+You have reached the end of the book — this alone shows your seriousness and determination.
+
+Remember: the examiner wants to hear you speak naturally. They don't want perfection — they want real communication.
+
+If you make a mistake, keep going. If you forget a word, describe it. If you don't understand, ask for it to be repeated.
+
+We wish you every success!`,
+    contentAr: `أهم الأخطاء الشائعة — تجنبها!
+- الإجابة بـ Yes أو No فقط — أضف دائماً سبباً وتفاصيل
+- الصمت الطويل — استخدم جمل الإنقاذ: "Let me think..."
+- حفظ الإجابات كلمة بكلمة — يبدو غير طبيعي وحفظياً
+- نسيان سؤال الممتحن — مطلوب منك سؤال واحد على الأقل!
+- التحدث بسرعة — اهدأ، تنفس، تحدث بوضوح
+- الاستسلام إذا أخطأت — استمر دائماً!
+
+صيغة الإجابة المثالية:
+الإجابة الجيدة = نعم/لا + سبب + مثال شخصي
+
+س: هل تحب وسائل النقل العام؟
+ضعيف: "نعم."
+إجابة مستوى B1: "نعم، أحبها لأنها رخيصة وسهلة الاستخدام. على سبيل المثال، أستقل الحافلة كل يوم للعمل — توفر لي المال ولا يتعين علي القلق بشأن مواقف السيارات أو حركة المرور."
+
+قائمة التحقق النهائية — يوم الاختبار:
+- قرأت الكتاب كاملاً وفهمت كل فصل
+- اخترت موضوعي وتدربت عليه حتى أستطيع التحدث 4 دقائق
+- حضّرت ورقة الاستمارة بنقاط واضحة
+- تدربت على الكلام بصوت عالٍ وسجّلت نفسي
+- أعرف جمل الإنقاذ عن ظهر قلب
+- عندي 3 أسئلة جاهزة للممتحن
+- راجعت المواضيع السبعة الرسمية بالكامل
+- جواز سفري جاهز وساري المفعول
+- أعرف مكان الاختبار وتوقيته بالضبط
+- نمت جيداً الليلة السابقة للاختبار
+
+رسالتنا الأخيرة إليك:
+وصلت إلى نهاية الكتاب — هذا وحده يدل على جديتك وتصميمك.
+
+تذكر: الممتحن يريد أن يسمعك تتحدث بشكل طبيعي. لا يريد الكمال — يريد التواصل الحقيقي.
+
+إذا أخطأت — استمر. إذا نسيت كلمة — صفها. إذا لم تفهم — اطلب الإعادة.
+
+نتمنى لك التوفيق والنجاح!`,
+  },
+
 ];
 
