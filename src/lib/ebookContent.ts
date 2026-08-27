@@ -957,4 +957,176 @@ Question to ask the examiner:
 سؤال يُطرح على الممتحن:
 "هل تعتقد أن نظام النقل في مدينتك جيد؟ ماذا كنت ستحسن؟"`,
   },
+  {
+    id: "topic-music",
+    titleEn: "Part 2, Topic 5 — Music",
+    titleAr: "الجزء الثاني، الموضوع 5 — الموسيقى",
+    contentEn: `Key vocabulary:
+Orchestra/Band, Genre, Live music, Gig/Concert, Playlist, Instrument, Rhythm/Melody, Song/Lyrics, Moving/Emotional, Uplifting/Calming, Background music, Streaming platform
+
+Q: What kind of music do you enjoy?
+I enjoy a variety of music depending on my mood. When relaxing, I like calm acoustic music. When exercising, I prefer something upbeat and energetic.
+
+Q: Do you play any musical instruments?
+Unfortunately no, but it's something I've always wanted to learn. If I had more time, I would love to learn the piano or guitar.
+
+Q: How does music affect your mood?
+Music has a huge effect on my mood. If I'm stressed, calm music helps me relax almost immediately.
+
+Q: Have you ever been to a live music concert?
+Yes, I went to a concert a couple of years ago and it was unforgettable. The energy was incredible.
+
+Q: Do you think music is important in people's lives?
+Yes, music is one of the most important forms of human expression. It connects people across cultures and languages.
+
+Useful phrases:
+- I'm really into [pop/classical/Arabic] music...
+- Music helps me relax / concentrate / feel motivated...
+- I listen to music when I'm... I can't imagine [commuting] without music.
+- My favourite type of music is... because it makes me feel...
+
+Question to ask the examiner:
+"Do you play any instruments, or do you have a favourite musician?"`,
+    contentAr: `المفردات الأساسية:
+فرقة/أوركسترا، نوع موسيقى، موسيقى مباشرة، حفلة موسيقية، قائمة تشغيل، آلة موسيقية، لحن/إيقاع، كلمات/أغنية، مؤثر، مريح/رافع للروح، موسيقى خلفية، منصة البث
+
+س: ما نوع الموسيقى التي تستمتع بها؟
+أستمتع بأنواع متنوعة من الموسيقى حسب مزاجي. عندما أسترخي، أحب الموسيقى الصوتية الهادئة. عندما أمارس الرياضة، أفضل شيئاً حيوياً ومفعماً بالطاقة.
+
+س: هل تعزف على أي آلات موسيقية؟
+للأسف لا، لكنه شيء أردت تعلمه دائماً. لو كان لدي وقت أكثر، كنت سأحب تعلم البيانو أو الجيتار.
+
+س: كيف تؤثر الموسيقى على مزاجك؟
+للموسيقى تأثير كبير على مزاجي. إذا كنت متوتراً، تساعدني الموسيقى الهادئة على الاسترخاء تقريباً فوراً.
+
+س: هل ذهبت من قبل إلى حفلة موسيقية مباشرة؟
+نعم، ذهبت إلى حفلة موسيقية منذ عامين وكانت لا تُنسى. كانت الطاقة مذهلة.
+
+س: هل تعتقد أن الموسيقى مهمة في حياة الناس؟
+نعم، الموسيقى هي أحد أهم أشكال التعبير الإنساني. تربط الناس عبر الثقافات واللغات.
+
+عبارات مفيدة:
+- أنا مهتم جداً بموسيقى [البوب/الكلاسيكية/العربية]...
+- تساعدني الموسيقى على الاسترخاء/التركيز/الشعور بالحافز...
+- أستمع إلى الموسيقى عندما... لا يمكنني تخيل [التنقل اليومي] بدون موسيقى.
+- نوع موسيقاي المفضل هو... لأنه يجعلني أشعر بـ...
+
+سؤال يُطرح على الممتحن:
+"هل تعزف على أي آلات موسيقية، أم لديك موسيقي مفضل؟"`,
+  },
+  {
+    id: "topic-recent-experiences",
+    titleEn: "Part 2, Topic 6 — Recent Personal Experiences",
+    titleAr: "الجزء الثاني، الموضوع 6 — تجارب شخصية حديثة",
+    contentEn: `Key vocabulary:
+Recently/Lately, Just/Already/Yet, Last week/month, A few days ago, I've been to, I tried/visited, Surprised/Impressed, Memorable, It turned out to be, Overall, For the first time, I would recommend
+
+Q: Have you done anything interesting recently?
+Yes! I've just finished a short English course at a local college, which I'm really pleased about.
+
+Q: Have you tried anything new lately?
+Last month I tried cooking a Thai curry for the first time. I'd never cooked Thai food before so I was nervous, but it turned out really well.
+
+Q: Have you been anywhere interesting recently?
+A few weeks ago I took my children to a local museum with a special space exhibition. It was fascinating.
+
+Q: What was the best thing that happened to you recently?
+My son got excellent results in his school exams. We were all incredibly proud.
+
+Q: Have you watched anything good recently?
+I've recently watched a wonderful documentary series about wildlife. I watched the whole series in a week!
+
+Useful phrases:
+- I've recently... I've just... I haven't... yet.
+- Last [week/month], I... and it was really [enjoyable/interesting].
+- I tried [something] for the first time and I was [surprised/impressed].
+- It turned out to be much [better/more interesting] than I expected.
+
+Question to ask the examiner:
+"Have you done anything interesting or visited anywhere recently?"`,
+    contentAr: `المفردات الأساسية:
+مؤخراً، بعد/بالفعل/للتو، الأسبوع/الشهر الماضي، قبل أيام قليلة، ذهبت إلى، جربت/زرت، مندهش/متفاجئ، لا يُنسى، اتضح أنه كان، بشكل عام، للمرة الأولى، أنصح به
+
+س: هل فعلت شيئاً مثيراً للاهتمام مؤخراً؟
+نعم! لقد أنهيت للتو دورة إنجليزية قصيرة في كلية محلية، وأنا سعيد جداً بذلك.
+
+س: هل جربت شيئاً جديداً مؤخراً؟
+الشهر الماضي جربت طهي كاري تايلاندي للمرة الأولى. لم أطبخ طعاماً تايلاندياً من قبل لذا كنت متوتراً، لكنه نجح بشكل رائع.
+
+س: هل ذهبت إلى مكان مثير للاهتمام مؤخراً؟
+منذ أسابيع قليلة اصطحبت أطفالي إلى متحف محلي فيه معرض خاص عن الفضاء. كان رائعاً.
+
+س: ما هو أفضل شيء حدث لك مؤخراً؟
+حصل ابني على نتائج ممتازة في امتحاناته المدرسية. كنا جميعاً فخورين للغاية.
+
+س: هل شاهدت شيئاً جيداً مؤخراً؟
+شاهدت مؤخراً سلسلة وثائقية رائعة عن الحياة البرية. شاهدت السلسلة بأكملها في أسبوع واحد!
+
+عبارات مفيدة:
+- لقد مؤخراً... لقد للتو... لم... بعد.
+- [الأسبوع/الشهر] الماضي، أنا... وكان ممتعاً/مثيراً للاهتمام حقاً.
+- جربت [شيئاً] للمرة الأولى وكنت [متفاجئاً/منبهراً].
+- اتضح أنه كان أفضل/أكثر إثارة للاهتمام بكثير مما توقعت.
+
+سؤال يُطرح على الممتحن:
+"هل فعلت شيئاً مثيراً للاهتمام أو زرت مكاناً مؤخراً؟"`,
+  },
+  {
+    id: "topic-festivals",
+    titleEn: "Part 2, Topic 7 — Festivals",
+    titleAr: "الجزء الثاني، الموضوع 7 — الأعياد والمهرجانات",
+    contentEn: `Key vocabulary:
+Ramadan, Eid al-Fitr/Eid al-Adha, Christmas/New Year, Fireworks, Giving/Charity, Procession/Parade, Traditional costume, Iftar/Fasting, Community, Religious/Spiritual, Diwali, Bonfire Night
+
+Q: What is your favourite festival? Why?
+My favourite is Eid al-Fitr. It marks the end of Ramadan and has a deep spiritual meaning. We dress in new clothes, go to morning prayers, and spend the day visiting family.
+
+Q: How do people celebrate this festival in your country?
+In my home country, Eid is celebrated with great excitement. People decorate homes, prepare traditional dishes, and give gifts to children.
+
+Q: Are there any festivals you celebrate here in the UK?
+Yes! Bonfire Night in November is exciting — the fireworks are spectacular. I've also embraced Christmas here.
+
+Q: Do you think festivals are important for society?
+Absolutely. Festivals play a vital role — they bring communities together and connect people with their cultural roots.
+
+Q: How do UK festivals compare to those in your country?
+There are similarities and differences. Both involve family, food, and celebrating. However, British festivals like Christmas focus more on shopping and gifts, while Eid has a stronger spiritual aspect.
+
+Useful phrases:
+- My favourite festival is... because it's a time when the whole family...
+- We celebrate by... It's a tradition to...
+- The festival has a deep [religious/cultural] meaning for...
+- Festivals are important because they bring communities together...
+
+Question to ask the examiner:
+"Do you have a favourite festival or celebration in the UK that you enjoy?"`,
+    contentAr: `المفردات الأساسية:
+رمضان، عيد الفطر/عيد الأضحى، عيد الميلاد/رأس السنة، ألعاب نارية، خيرية/عطاء، موكب/استعراض، زي تقليدي، صيام/إفطار، مجتمع، روحي/ديني، عيد الأنوار الهندي، ليلة المدفعية
+
+س: ما هو عيدك المفضل؟ لماذا؟
+عيدي المفضل هو عيد الفطر. يمثل نهاية رمضان وله معنى روحي عميق. نرتدي ملابس جديدة، ونذهب لصلاة الصباح، ونقضي اليوم في زيارة العائلة.
+
+س: كيف يحتفل الناس بهذا العيد في بلدك؟
+في بلدي، يُحتفل بالعيد بحماس كبير. يزين الناس منازلهم، ويحضرون أطباقاً تقليدية، ويقدمون هدايا للأطفال.
+
+س: هل هناك أي أعياد تحتفل بها هنا في المملكة المتحدة؟
+نعم! ليلة المدفعية في نوفمبر مثيرة — الألعاب النارية رائعة. لقد تبنيت أيضاً الاحتفال بعيد الميلاد هنا.
+
+س: هل تعتقد أن الأعياد مهمة للمجتمع؟
+بالتأكيد. تلعب الأعياد دوراً حيوياً — تجمع المجتمعات معاً وتربط الناس بجذورهم الثقافية.
+
+س: كيف تقارن أعياد المملكة المتحدة بأعياد بلدك؟
+هناك أوجه تشابه واختلاف. كلاهما يتضمن العائلة والطعام والاحتفال. لكن الأعياد البريطانية مثل عيد الميلاد تركز أكثر على التسوق والهدايا، بينما العيد له جانب روحي أقوى.
+
+عبارات مفيدة:
+- عيدي المفضل هو... لأنه وقت تجتمع فيه العائلة بأكملها...
+- نحتفل بـ... من التقليد أن...
+- للعيد معنى [ديني/ثقافي] عميق لـ...
+- الأعياد مهمة لأنها تجمع المجتمعات معاً...
+
+سؤال يُطرح على الممتحن:
+"هل لديك عيد أو احتفال مفضل في المملكة المتحدة تستمتع به؟"`,
+  },
 ];
+
