@@ -729,4 +729,232 @@ Question to ask the examiner:
 سؤال يُطرح على الممتحن:
 "هل زرت أي جزء من بلدك وجدته جميلاً أو مثيراً للاهتمام بشكل خاص؟"`,
   },
+  {
+    id: "topic-transport",
+    titleEn: "Part 2, Topic 1 — Transport",
+    titleAr: "الجزء الثاني، الموضوع 1 — المواصلات",
+    contentEn: `Key vocabulary:
+Tram/Train, Coach/Bus, Cab/Taxi, Tube/Underground, Traffic jam, Bike/Bicycle, Delay, Rush hour, Carbon emissions, Season ticket, Electric vehicle, Eco-friendly
+
+Q: How do you usually get around your city?
+I usually travel by bus because it's affordable and convenient. I have a weekly pass which saves me money. For shorter distances, I prefer to walk.
+
+Q: Do you prefer public transport or a private car? Why?
+I prefer public transport, to be honest. It's less stressful than driving, especially during rush hour. It's also much cheaper.
+
+Q: What are the advantages of public transport?
+There are several. First, it reduces traffic congestion. Second, it's more affordable than a car. Third, it's better for the environment.
+
+Q: What would you do if you were stuck in a traffic jam?
+I'd listen to a podcast or music to pass the time. I might also check a map app to find an alternative route.
+
+Q: Do you think electric cars are the future?
+Yes, I think so. Electric vehicles are much better for the environment.
+
+Useful phrases:
+- I usually get around by... / I tend to travel by...
+- I prefer [bus/train/cycling] because it's...
+- The main advantage of [car/bus] is... however the downside is...
+- It takes me about [20 minutes] to get to work by...
+
+Question to ask the examiner:
+"Do you usually drive to work, or do you prefer public transport?"`,
+    contentAr: `المفردات الأساسية:
+قطار/ترام، حافلة/حافلة بعيدة، سيارة أجرة، مترو الأنفاق، ازدحام مروري، دراجة هوائية، تأخير، ساعة الذروة، انبعاثات الكربون، تذكرة موسمية، سيارة كهربائية، صديق للبيئة
+
+س: كيف تتنقل عادة في مدينتك؟
+أسافر عادة بالحافلة لأنها ميسورة التكلفة ومريحة. لدي تذكرة أسبوعية توفر لي المال. بالنسبة للمسافات الأقصر، أفضل المشي.
+
+س: هل تفضل وسائل النقل العام أم سيارة خاصة؟ لماذا؟
+أفضل وسائل النقل العام، بصراحة. إنها أقل توتراً من القيادة، خاصة خلال ساعة الذروة. كما أنها أرخص بكثير.
+
+س: ما هي مزايا وسائل النقل العام؟
+هناك عدة مزايا. أولاً، تقلل من ازدحام المرور. ثانياً، إنها أكثر ميسورية من السيارة. ثالثاً، أفضل للبيئة.
+
+س: ماذا ستفعل إذا كنت عالقاً في ازدحام مروري؟
+سأستمع إلى بودكاست أو موسيقى لتمضية الوقت. قد أتحقق أيضاً من تطبيق خرائط لإيجاد طريق بديل.
+
+س: هل تعتقد أن السيارات الكهربائية هي المستقبل؟
+نعم، أعتقد ذلك. المركبات الكهربائية أفضل بكثير للبيئة.
+
+عبارات مفيدة:
+- عادة أتنقل بـ... أميل إلى السفر بـ...
+- أفضل [الحافلة/القطار/ركوب الدراجة] لأنه...
+- الميزة الرئيسية لـ[السيارة/الحافلة] هي... لكن العيب هو...
+- يستغرق مني حوالي [20 دقيقة] للوصول إلى العمل بـ...
+
+سؤال يُطرح على الممتحن:
+"هل تقود عادة إلى العمل، أم تفضل وسائل النقل العام؟"`,
+  },
+  {
+    id: "topic-entertainment",
+    titleEn: "Part 2, Topic 2 — Entertainment",
+    titleAr: "الجزء الثاني، الموضوع 2 — الترفيه",
+    contentEn: `Key vocabulary:
+Concert, Theatre/Cinema, Streaming (Netflix), TV series, Drama/Comedy, Documentary, Relaxing, Binge-watch, Entertaining, Outdoor activity, Hobby, Live performance
+
+Q: What do you usually do in your free time?
+In my free time, I enjoy watching films and series on streaming platforms. I also like going for walks, especially at weekends.
+
+Q: What type of films or TV shows do you enjoy?
+I really enjoy dramas and documentaries. I find documentaries particularly interesting because you learn something new every time.
+
+Q: Have you been to a concert or theatre recently?
+Yes, I went to a concert about three months ago. The atmosphere was amazing and the music was fantastic.
+
+Q: Do you think entertainment is important? Why?
+Absolutely. Entertainment is essential for mental wellbeing. It helps us relax, reduces stress, and gives us something to look forward to.
+
+Q: How has entertainment changed in recent years?
+It's changed enormously. Streaming services have transformed the way we watch films — we no longer wait for a programme.
+
+Useful phrases:
+- In my free time, I really enjoy... I love spending my evenings...
+- I'm a big fan of [documentaries/dramas/comedies]...
+- I've recently watched... and I really enjoyed it because...
+- Entertainment is important because it helps people...
+
+Question to ask the examiner:
+"Do you enjoy going to the cinema, or do you prefer watching films at home?"`,
+    contentAr: `المفردات الأساسية:
+حفل موسيقي، سينما/مسرح، بث إلكتروني، مسلسل، كوميديا/دراما، فيلم وثائقي، مريح للأعصاب، مشاهدة متواصلة، ممتع/مسلٍ، نشاط خارجي، هواية، عرض مباشر/حي
+
+س: ماذا تفعل عادة في وقت فراغك؟
+في وقت فراغي، أستمتع بمشاهدة الأفلام والمسلسلات على منصات البث. أحب أيضاً الذهاب في نزهات، خاصة في عطلات نهاية الأسبوع.
+
+س: ما نوع الأفلام أو المسلسلات التي تستمتع بها؟
+أستمتع كثيراً بالدراما والأفلام الوثائقية. أجد الأفلام الوثائقية مثيرة للاهتمام بشكل خاص لأنك تتعلم شيئاً جديداً في كل مرة.
+
+س: هل ذهبت إلى حفل موسيقي أو مسرح مؤخراً؟
+نعم، ذهبت إلى حفل موسيقي منذ حوالي ثلاثة أشهر. كانت الأجواء مذهلة والموسيقى رائعة.
+
+س: هل تعتقد أن الترفيه مهم؟ لماذا؟
+بالتأكيد. الترفيه ضروري للصحة النفسية. يساعدنا على الاسترخاء، ويقلل التوتر، ويمنحنا شيئاً نتطلع إليه.
+
+س: كيف تغير الترفيه في السنوات الأخيرة؟
+تغير بشكل كبير. غيرت خدمات البث الطريقة التي نشاهد بها الأفلام — لم نعد ننتظر برنامجاً معيناً.
+
+عبارات مفيدة:
+- في وقت فراغي، أستمتع حقاً بـ... أحب قضاء أمسياتي...
+- أنا من محبي [الأفلام الوثائقية/الدراما/الكوميديا]...
+- شاهدت مؤخراً... واستمتعت به حقاً لأن...
+- الترفيه مهم لأنه يساعد الناس على...
+
+سؤال يُطرح على الممتحن:
+"هل تستمتع بالذهاب إلى السينما، أم تفضل مشاهدة الأفلام في المنزل؟"`,
+  },
+  {
+    id: "topic-special-occasions",
+    titleEn: "Part 2, Topic 3 — Special Occasions",
+    titleAr: "الجزء الثاني، الموضوع 3 — المناسبات الخاصة",
+    contentEn: `Key vocabulary:
+Anniversary, Birthday, Graduation, Wedding, Celebration, Gift/Present, Tradition, Decoration, Gathering, Memorable, Happiness/Joy, Ceremony
+
+Q: What is your favourite special occasion? Why?
+My favourite is Eid al-Fitr. I love it because the whole family comes together — we have a special meal, give gifts to children, and visit relatives.
+
+Q: How do you celebrate birthdays in your family?
+We usually have a small gathering at home with close family. We bake a cake and decorate. The children love blowing out the candles.
+
+Q: Do you think it's important to celebrate special occasions?
+Yes, very important. They give us the chance to bring people together and show them we care.
+
+Q: What was the most memorable celebration you've had?
+I think the most memorable was my daughter's first birthday. Seeing her face when everyone sang was priceless.
+
+Q: Do you prefer big parties or small celebrations?
+Definitely small celebrations with close family. Big parties can feel overwhelming.
+
+Useful phrases:
+- My favourite occasion is... because it brings the whole family together.
+- We usually celebrate by... We have a tradition of...
+- I have wonderful memories of... The most memorable occasion was...
+- Special occasions are important because they help us...
+
+Question to ask the examiner:
+"Do you have any special traditions for celebrations in your country?"`,
+    contentAr: `المفردات الأساسية:
+ذكرى سنوية، عيد ميلاد، تخرج، زفاف/حفل زواج، احتفال، هدية، تقليد/عادة، زينة، تجمع عائلي، لا يُنسى، فرح/سعادة، حفل رسمي
+
+س: ما هي مناسبتك الخاصة المفضلة؟ لماذا؟
+مناسبتي المفضلة هي عيد الفطر. أحبه لأن العائلة بأكملها تجتمع — نتناول وجبة خاصة، ونقدم هدايا للأطفال، ونزور الأقارب.
+
+س: كيف تحتفلون بأعياد الميلاد في عائلتك؟
+عادة نقيم تجمعاً صغيراً في المنزل مع العائلة المقربة. نخبز كعكة ونزين المكان. يحب الأطفال إطفاء الشموع.
+
+س: هل تعتقد أنه من المهم الاحتفال بالمناسبات الخاصة؟
+نعم، مهم جداً. تمنحنا الفرصة لجمع الناس معاً وإظهار اهتمامنا بهم.
+
+س: ما هو الاحتفال الأكثر تميزاً الذي حضرته؟
+أعتقد أن الأكثر تميزاً كان عيد ميلاد ابنتي الأول. كانت رؤية وجهها عندما غنى الجميع لا تقدر بثمن.
+
+س: هل تفضل الحفلات الكبيرة أم الاحتفالات الصغيرة؟
+بالتأكيد الاحتفالات الصغيرة مع العائلة المقربة. يمكن أن تكون الحفلات الكبيرة مرهقة.
+
+عبارات مفيدة:
+- مناسبتي المفضلة هي... لأنها تجمع العائلة بأكملها معاً.
+- عادة نحتفل بـ... لدينا تقليد وهو...
+- لدي ذكريات رائعة عن... كانت المناسبة الأكثر تميزاً...
+- المناسبات الخاصة مهمة لأنها تساعدنا على...
+
+سؤال يُطرح على الممتحن:
+"هل لديكم تقاليد خاصة للاحتفالات في بلدك؟"`,
+  },
+  {
+    id: "topic-means-of-transport",
+    titleEn: "Part 2, Topic 4 — Means of Transport",
+    titleAr: "الجزء الثاني، الموضوع 4 — وسائل النقل",
+    contentEn: `Key vocabulary:
+High-speed train, Ride-sharing (Uber), Cycle lane, Coach (long-distance), Punctual, Unreliable/Reliable, Congestion, Expensive/Affordable, Commute, Carbon footprint, Timetable, Door-to-door
+
+Q: What is the best way to travel around a city?
+In my opinion, the underground or metro is best if the city has one. It's fast, avoids traffic completely, and is usually very reliable.
+
+Q: What are the advantages and disadvantages of travelling by car?
+The main advantage is convenience — door-to-door without waiting. However, disadvantages are significant: traffic congestion and high running costs.
+
+Q: Have you used a ride-sharing service like Uber?
+Yes, I've used Uber several times, especially late at night when public transport isn't available.
+
+Q: Do you think cycling is a good alternative to driving?
+Yes, especially in cities. Cycling is free, keeps you fit, produces zero emissions, and you avoid traffic jams.
+
+Q: Do you think self-driving cars will change transport?
+Yes, I think they will. If self-driving cars become reliable and safe, they could reduce accidents caused by human error.
+
+Useful phrases:
+- The most efficient way to travel is... because...
+- Compared to [car/bus], [train/cycling] is much [faster/cheaper/greener]...
+- The main advantage of... is... however, the downside is...
+- I think cities need to invest more in... in order to...
+
+Question to ask the examiner:
+"Do you think your city's transport system is good? What would you improve?"`,
+    contentAr: `المفردات الأساسية:
+قطار فائق السرعة، مشاركة الركوب، مسار الدراجات، حافلة للمسافات الطويلة، دقيق في المواعيد، موثوق/غير موثوق، ازدحام، معقول/مكلف، التنقل اليومي للعمل، البصمة الكربونية، جدول المواعيد، من الباب إلى الباب
+
+س: ما هي أفضل طريقة للتنقل في المدينة؟
+في رأيي، مترو الأنفاق هو الأفضل إذا كانت المدينة تمتلكه. إنه سريع، يتجنب الازدحام تماماً، وعادة موثوق جداً.
+
+س: ما هي مزايا وعيوب السفر بالسيارة؟
+الميزة الرئيسية هي الراحة — من الباب إلى الباب بدون انتظار. لكن العيوب كبيرة: ازدحام المرور وارتفاع التكاليف.
+
+س: هل استخدمت خدمة مشاركة الركوب مثل أوبر؟
+نعم، استخدمت أوبر عدة مرات، خاصة في وقت متأخر من الليل عندما لا تتوفر وسائل النقل العام.
+
+س: هل تعتقد أن ركوب الدراجات بديل جيد للقيادة؟
+نعم، خاصة في المدن. ركوب الدراجات مجاني، ويحافظ على لياقتك، ولا ينتج انبعاثات، وتتجنب الازدحام.
+
+س: هل تعتقد أن السيارات ذاتية القيادة ستغير وسائل النقل؟
+نعم، أعتقد ذلك. إذا أصبحت السيارات ذاتية القيادة موثوقة وآمنة، يمكن أن تقلل الحوادث الناتجة عن الخطأ البشري.
+
+عبارات مفيدة:
+- أكثر طريقة فعالة للسفر هي... لأن...
+- مقارنة بـ[السيارة/الحافلة]، [القطار/الدراجة] أكثر [سرعة/رخصاً/صداقة للبيئة]...
+- الميزة الرئيسية لـ... هي... لكن العيب هو...
+- أعتقد أن المدن تحتاج إلى الاستثمار أكثر في... من أجل...
+
+سؤال يُطرح على الممتحن:
+"هل تعتقد أن نظام النقل في مدينتك جيد؟ ماذا كنت ستحسن؟"`,
+  },
 ];
