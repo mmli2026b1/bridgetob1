@@ -295,9 +295,16 @@ export default function AccountPage() {
                     {t("account.ebookOwned", lang)}
                   </p>
                 </div>
+                <Link
+                  href="/ebook"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-emerald-500 hover:shadow-md"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  Read Online
+                </Link>
                 <button
                   onClick={handleDownloadEbook}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-emerald-500 hover:shadow-md"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
                 >
                   <Download className="h-4 w-4" />
                   {t("account.downloadEbook", lang)}
