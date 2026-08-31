@@ -128,31 +128,6 @@ export default function AccountPage() {
     }
   };
 
-  const handleDownloadEbook = async () => {
-    try {
-      const res = await fetch("/api/download-ebook");
-      if (!res.ok) {
-        const { error } = await res.json();
-        toast.error(error || t("account.error", lang));
-        return;
-      }
-
-      // Trigger file download from the response blob
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Success-Bridge-B1-Ebook.docx";
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      toast.success(t("account.downloadStarted", lang));
-    } catch {
-      toast.error(t("account.error", lang));
-    }
-  };
-
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
@@ -302,13 +277,6 @@ export default function AccountPage() {
                   <BookOpen className="h-4 w-4" />
                   Read Online
                 </Link>
-                <button
-                  onClick={handleDownloadEbook}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50"
-                >
-                  <Download className="h-4 w-4" />
-                  {t("account.downloadEbook", lang)}
-                </button>
               </>
             ) : (
               <>
