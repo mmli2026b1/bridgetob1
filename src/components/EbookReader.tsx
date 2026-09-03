@@ -1,15 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabaseClient";
-import { ebookChapters } from "@/lib/ebookContent";
-import { Lock, Loader2, BookOpen, Languages } from "lucide-react";
+import { Lock, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+
+const TOTAL_PAGES = 31;
 
 export default function EbookReader() {
   const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
-  const [activeChapter, setActiveChapter] = useState(ebookChapters[0]?.id);
-  const [showArabic, setShowArabic] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [jumpValue, setJumpValue] = useState("1");
   const supabase = createClient();
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export default function EbookReader() {
     check();
   }, []);
 
+  // Copy protection
   useEffect(() => {
     if (!hasAccess) return;
 
@@ -59,6 +61,24 @@ export default function EbookReader() {
     };
   }, [hasAccess]);
 
+  const goToPage = useCallback((page: number) => {
+    const clamped = Math.min(Math.max(page, 1), TOTAL_PAGES);
+    setCurrentPage(clamped);
+    setJumpValue(String(clamped));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  // Keyboard navigation (arrow keys)
+  useEffect(() => {
+    if (!hasAccess) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") goToPage(currentPage + 1);
+      if (e.key === "ArrowLeft") goToPage(currentPage - 1);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [hasAccess, currentPage, goToPage]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -80,63 +100,84 @@ export default function EbookReader() {
     );
   }
 
-  const chapter = ebookChapters.find((c) => c.id === activeChapter) ?? ebookChapters[0];
+  const pageNum = String(currentPage).padStart(2, "0");
 
   return (
-    <div className="flex flex-col gap-6 lg:flex-row select-none" onDragStart={(e) => e.preventDefault()}>
-      <div className="lg:w-72">
-        <div className="sticky top-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <div className="mb-3 flex items-center gap-2">
-            <BookOpen className="h-5 w-5 text-emerald-600" />
-            <h2 className="text-sm font-bold text-slate-900">Chapters</h2>
-          </div>
-          <div className="flex flex-col gap-1">
-            {ebookChapters.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => setActiveChapter(c.id)}
-                className={`rounded-lg px-3 py-2 text-left text-sm font-medium transition-colors ${
-                  activeChapter === c.id ? "bg-emerald-100 text-emerald-800" : "text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                {c.titleEn}
-              </button>
-            ))}
-          </div>
-          <div className="mt-4 border-t border-slate-100 pt-4">
-            <button
-              onClick={() => setShowArabic((s) => !s)}
-              className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50"
-            >
-              <Languages className="h-4 w-4" />
-              {showArabic ? "Hide Arabic" : "Show Arabic"}
-            </button>
-          </div>
-        </div>
-      </div>
+    <div className="mx-auto flex max-w-2xl flex-col items-center select-none" onDragStart={(e) => e.preventDefault()}>
+      {/* Top navigation bar */}
+      <div className="mb-4 flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          Previous
+        </button>
 
-      <div className="flex-1 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <h1 className="mb-2 text-2xl font-bold text-slate-900">{chapter.titleEn}</h1>
-        {showArabic && (
-          <h2 dir="rtl" className="mb-6 text-xl font-bold text-slate-600">
-            {chapter.titleAr}
-          </h2>
-        )}
-
-        <div className="prose prose-slate max-w-none">
-          <div className="whitespace-pre-wrap leading-relaxed text-slate-700">{chapter.contentEn}</div>
-
-          {showArabic && (
-            <div dir="rtl" className="mt-8 whitespace-pre-wrap border-t border-slate-100 pt-8 text-right leading-relaxed text-slate-700">
-              {chapter.contentAr}
-            </div>
-          )}
+        <div className="flex items-center gap-2 text-sm text-slate-600">
+          <span>Page</span>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={jumpValue}
+            onChange={(e) => setJumpValue(e.target.value.replace(/[^0-9]/g, ""))}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                goToPage(parseInt(jumpValue || "1", 10));
+              }
+            }}
+            onBlur={() => goToPage(parseInt(jumpValue || "1", 10))}
+            className="w-12 rounded-md border border-slate-200 px-2 py-1 text-center text-sm"
+          />
+          <span>of {TOTAL_PAGES}</span>
         </div>
 
-        <p className="mt-8 border-t border-slate-100 pt-4 text-center text-xs text-slate-300">
-          Success Bridge — Online reader only. Please do not share or redistribute.
-        </p>
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === TOTAL_PAGES}
+          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Next
+          <ChevronRight className="h-4 w-4" />
+        </button>
       </div>
+
+      {/* Page image */}
+      <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/ebook-pages/page-${pageNum}.jpg`}
+          alt={`Ebook page ${currentPage}`}
+          className="w-full select-none pointer-events-none"
+          draggable={false}
+        />
+      </div>
+
+      {/* Bottom navigation bar (duplicate for convenience) */}
+      <div className="mt-4 flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          Previous
+        </button>
+        <span className="text-sm text-slate-400">Page {currentPage} of {TOTAL_PAGES}</span>
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === TOTAL_PAGES}
+          className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Next
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      </div>
+
+      <p className="mt-6 text-center text-xs text-slate-300">
+        Success Bridge — Online reader only. Please do not share or redistribute.
+      </p>
     </div>
   );
 }
