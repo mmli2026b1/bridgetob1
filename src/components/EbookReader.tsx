@@ -4,7 +4,12 @@ import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabaseClient";
 import { Lock, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 
-const TOTAL_PAGES = 31;
+const TOTAL_PAGES = 37;
+
+// Pages 1-31 were exported as JPG, pages 32+ as PNG
+function getPageExtension(page: number): string {
+  return page <= 31 ? "jpg" : "png";
+}
 
 export default function EbookReader() {
   const [loading, setLoading] = useState(true);
@@ -37,7 +42,6 @@ export default function EbookReader() {
     check();
   }, []);
 
-  // Copy protection
   useEffect(() => {
     if (!hasAccess) return;
 
@@ -68,7 +72,6 @@ export default function EbookReader() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Keyboard navigation (arrow keys)
   useEffect(() => {
     if (!hasAccess) return;
     const handleKey = (e: KeyboardEvent) => {
@@ -101,10 +104,10 @@ export default function EbookReader() {
   }
 
   const pageNum = String(currentPage).padStart(2, "0");
+  const extension = getPageExtension(currentPage);
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center select-none" onDragStart={(e) => e.preventDefault()}>
-      {/* Top navigation bar */}
       <div className="mb-4 flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
         <button
           onClick={() => goToPage(currentPage - 1)}
@@ -143,18 +146,16 @@ export default function EbookReader() {
         </button>
       </div>
 
-      {/* Page image */}
       <div className="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={`/ebook-pages/page-${pageNum}.jpg`}
+          src={`/ebook-pages/page-${pageNum}.${extension}`}
           alt={`Ebook page ${currentPage}`}
           className="w-full select-none pointer-events-none"
           draggable={false}
         />
       </div>
 
-      {/* Bottom navigation bar (duplicate for convenience) */}
       <div className="mt-4 flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
         <button
           onClick={() => goToPage(currentPage - 1)}
